@@ -96,3 +96,16 @@ $ python test.py --input-path datasets/MUTAG/graphml
    --aggregators 0 
    --verbose
 ```
+But you can load Netpro2vec package into you python interpreter and work on you graphs like:
+
+```
+>>> import os
+>>> path = "...your-path-to-graph-directory..."
+>>> filenames = os.listdir(path)
+>>> import igraph as ig 
+>>> graphs = [ig.load(os.path.join(path,f)) for f in filenames]
+>>> from netpro2vec.Netpro2vec import Netpro2vec
+>>> model = Netpro2vec()
+>>> medel.fit(graphs)
+>>> model.get_embeddings()
+```
