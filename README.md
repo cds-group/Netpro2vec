@@ -85,6 +85,9 @@ $ python setup.py install
 Running
 ----------------------
 
+To run the <code>test.py</code> script you need to install the scikit learn package.
+Please refer to the official guide [Installing scikit-learn](https://scikit-learn.org/stable/install.html).
+
 To test the code you can run the command on MUTAG dataset:
 ```
 $ python test.py --input-path datasets/MUTAG/graphml 
@@ -95,4 +98,30 @@ $ python test.py --input-path datasets/MUTAG/graphml
    --cutoffs 0.01 
    --aggregators 0 
    --verbose
+```
+But you can load Netpro2vec package into you python interpreter and work on you graphs like:
+
+```
+>>> import os
+>>> path = "...your-path-to-graph-directory..."
+>>> filenames = os.listdir(path)
+>>> import igraph as ig 
+>>> graphs = [ig.load(os.path.join(path,f)) for f in filenames]
+>>> from netpro2vec.Netpro2vec import Netpro2vec
+>>> model = Netpro2vec()
+>>> medel.fit(graphs)
+>>> model.get_embedding()
+array([[ 1.6579988e-04, -1.2643806e-03, -9.3608483e-04, ...,
+         3.5708759e-03,  9.1854345e-05, -2.4944848e-05],
+       [ 1.3941363e-03, -1.4870684e-04,  2.2236386e-03, ...,
+         2.7858163e-03, -1.1076004e-03, -1.6276642e-03],
+       [-7.9958932e-04,  3.7489494e-03, -2.2576803e-03, ...,
+        -2.2035998e-03,  2.9178325e-03, -3.3222451e-03],
+       ...,
+       [ 1.9070054e-03,  2.5690219e-04, -1.7170990e-03, ...,
+        -2.1398342e-03, -1.1024768e-03, -2.9834590e-03],
+       [-3.7194900e-03,  4.5244402e-04, -6.9161621e-04, ...,
+        -3.6566083e-03,  4.5301823e-04,  2.0657710e-04],
+       [ 4.9070415e-05,  9.1010216e-04, -2.1217461e-03, ...,
+        -2.5239761e-03, -2.7091724e-03,  9.7283931e-04]], dtype=float32)
 ```

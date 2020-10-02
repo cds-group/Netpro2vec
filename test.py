@@ -1,6 +1,7 @@
 import numpy as np
-import warnings
-warnings.filterwarnings("ignore")
+# Import warning package to avoid deprecation warning of scikit-learn
+#import warnings       
+#warnings.filterwarnings("ignore")
 import igraph as ig
 import argparse
 import sys,os
