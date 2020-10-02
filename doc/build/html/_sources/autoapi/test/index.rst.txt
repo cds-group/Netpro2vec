@@ -1,0 +1,30 @@
+:mod:`test`
+===========
+
+.. py:module:: test
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   test.load_graphs
+   test.main
+
+
+.. data:: parser
+   
+
+   
+
+.. function:: load_graphs(input_path, dataname, labels, fmt='graphml', verbose=False)
+
+
+.. function:: main(args)
+
+
