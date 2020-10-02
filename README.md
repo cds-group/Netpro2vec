@@ -62,14 +62,25 @@ To run the code the following software must be installed on your system:
 
 An the following python packages:
 
-1. python-igraph
-2. gensim
-2. sent2vec
-4. smart_open
-5. scipy
-6. joblib
-7. tqdm
+```
+tqdm>=4.46.1
+pandas>=1.0.2
+numpy>=1.16.2
+gensim>=3.8.3
+scipy>=1.4.1
+joblib>=0.14.1
+python_igraph>=0.8.2
+```
 
+----------------------
+Installation
+----------------------
+
+In the root directory just run:
+
+```
+$ python setup.py install
+```
 ----------------------
 Running
 ----------------------
