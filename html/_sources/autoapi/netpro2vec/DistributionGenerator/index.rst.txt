@@ -1,0 +1,50 @@
+:mod:`netpro2vec.DistributionGenerator`
+=======================================
+
+.. py:module:: netpro2vec.DistributionGenerator
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   netpro2vec.DistributionGenerator.DistributionGenerator
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   netpro2vec.DistributionGenerator.probability_aggregator_cutoff
+
+
+.. py:class:: DistributionGenerator(distrib_type, graphs: List[ig.Graph], common_bin_list=True, verbose=False)
+
+   Generator class for Node distance distribution and Transition probability
+   matrices
+
+   .. method:: get_distributions(self)
+
+
+   .. method:: __get_bins(self)
+
+
+   .. method:: __get_node_distance_distr(self, g)
+
+
+   .. method:: __get_transition_matrix(self, g, walk=1)
+
+
+   .. method:: __run_distib_comp(self)
+
+
+
+.. function:: probability_aggregator_cutoff(probability_distrib_matrix, cut_off=0.01, agg_by=5, return_prob=True, remove_inf=False)
+
+

@@ -1,0 +1,64 @@
+:mod:`conf`
+===========
+
+.. py:module:: conf
+
+
+Module Contents
+---------------
+
+.. data:: project
+   :annotation: = Netpro2vec
+
+   
+
+.. data:: copyright
+   :annotation: = 2020, Ichcha Manipur and Maurizio Giordano
+
+   
+
+.. data:: author
+   :annotation: = Ichcha Manipur and Maurizio Giordano
+
+   
+
+.. data:: release
+   :annotation: = 0.1.0
+
+   
+
+.. data:: autoapi_type
+   :annotation: = python
+
+   
+
+.. data:: autoapi_dirs
+   :annotation: = ['../..']
+
+   
+
+.. data:: extensions
+   :annotation: = ['autoapi.extension', 'sphinx_rtd_theme', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc', 'rinoh.frontend.sphinx']
+
+   
+
+.. data:: templates_path
+   :annotation: = ['_templates']
+
+   
+
+.. data:: exclude_patterns
+   :annotation: = ['../../config.py', '../../test.py', '../../setup.py']
+
+   
+
+.. data:: html_theme
+   :annotation: = sphinx_rtd_theme
+
+   
+
+.. data:: html_static_path
+   :annotation: = ['_static']
+
+   
+
