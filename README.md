@@ -85,6 +85,9 @@ $ python setup.py install
 Running
 ----------------------
 
+To run the <code>test.py</code> script you need to install the scikit learn package.
+Please refer to the official guide [Installing scikit-learn](https://scikit-learn.org/stable/install.html).
+
 To test the code you can run the command on MUTAG dataset:
 ```
 $ python test.py --input-path datasets/MUTAG/graphml 
