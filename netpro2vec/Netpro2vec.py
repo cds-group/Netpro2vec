@@ -22,21 +22,33 @@ from typing import *
 
 
 class Netpro2vec:
-	r"""An implementation of `"NETPRO2VEC"`_
+	"""The class implementation of "NETPRO2VEC" model for whole-graph embedding.
     from the IEEE TCBB '20 paper "Netpro2vec: a Graph Embedding Framework for Biological Networks". The procedure
     uses probability distribution representations of graphs and skip-gram learning modelor later.
+
     Args:
-        format (str, optional): graph format. Dfault is "graphml"
-        dimensions (int, optional): number of features. Default is 128.
-        prob_type (list of str, optional): list of probability types. Default is ["tm1"] (allowed values: "ndd", "tm<int>").
-        cut_off (list of float, optional): list of cut-off thresholds to form words. Default is [0.01].
-        agg_by (list of int, optional: list of numbers of aggregators in words. Default is [5].
-        walk (int, optional): number of random walks in TM calculation. Default is 1.
-        min_count (int, optional) – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5
-        workers (int, optional) – use these many worker threads to train the model (Doc2Vec). Default is 4
-        epochs (int, optional) – Number of iterations (epochs) over the corpus (Doc2Vec). Default is 10
-        remove_inf (bool, optional): flag for removal of infinity value in histogram bins. Default is False.
-        vertex_labels (bool, optional: flag to set if graphs have vertex labels to be considered. Default is False
+        **format** *(str, optional)* -  graph format. Dfault is "graphml"
+
+        **dimensions** *(int, optional)* – number of features. Default is 128.
+
+        **rob_type** *(list of str, optional)* –  list of probability types. Default is ["tm1"] (allowed values: "ndd", "tm<int>").
+
+        **cut_off** *(list of float, optional)* –  list of cut-off thresholds to form words. Default is [0.01].
+
+        **agg_by** *(list of int, optional* – list of numbers of aggregators in words. Default is [0].
+
+        **walk** *(int, optional)* –  number of random walks in TM calculation. Default is 1.
+
+        **min_count** *(int, optional)* – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5
+
+        **workers** *(int, optional)* – use these many worker threads to train the model (Doc2Vec). Default is 4
+
+        **epochs** *(int, optional)* – Number of iterations (epochs) over the corpus (Doc2Vec). Default is 10
+
+        **remove_inf** *(bool, optional)*: flag for removal of infinity value in histogram bins. Default is False.
+
+        **vertex_labels** *(bool, optional)*: flag to set if graphs have vertex labels to be considered. Default is False
+
     """
 
 	def __init__(self, format="graphml", dimensions=128, prob_type: List[str]=["tm1"], 
@@ -59,7 +71,7 @@ class Netpro2vec:
 		self.dimensions = dimensions
 		self.remove_inf = remove_inf
 		self.vertex_labels = vertex_labels
-		self.embedding = []
+		self.embedding = None
 		self.probmats = {}
 		self.min_count=min_count 
 		self.down_sampling=down_sampling
@@ -73,7 +85,14 @@ class Netpro2vec:
 		self.tqdm = tqdm if self.verbose else utils.nop
 
 	def fit(self, graphs: List[ig.Graph]):
-		"""Fitting the model."""
+		"""Fitting method of Netpro2vec model.
+
+	    Args:
+	        **graphs** *(List igraph.Graph objs)* - list of graphs in igraph format types.
+
+	    Return:
+			The trained **Netpro2vec** model.
+	    """
 		self.format = format
 		self.num_graphs = len(graphs)
 		self.__generate_probabilities(graphs)
@@ -83,11 +102,19 @@ class Netpro2vec:
 		return self
 
 	def get_embedding(self):
-		r"""Getting the embedding of graphs."""
+		"""Access embedding of Netpro2vec model.
+
+	    Return:
+			The produced embedding in numpy array format (None if the mode was not trained).
+	    """
 		return np.array(self.embedding)
 
 	def get_memberships(self):
-		r"""Getting the membership dictionary."""
+		"""Access last document list used for training the Netpro2vec model.
+
+	    Return:
+			The document list used in last model training ([] if the model was never trained).
+	    """
 		return np.array(self.document_collections_list[-1])
 
 	def __generate_probabilities(self, graphs: List[ig.Graph]):
@@ -98,7 +125,10 @@ class Netpro2vec:
 	@wrap_non_picklable_objects
 	def __batch_feature_extractor(self, probability_distrib_matrix, name, word_tag=None, tag=True,
 								aggregate=0, cut=0, encodew=True, extractor=1):
-
+		''' Generate a document collection describing a single graph
+		    by concatenating distribution matrix data 
+		    (NDD or TM<int>) for each node in the graph. 
+		'''
 		if self.vertex_labels:
 			vertex_labels = str.split(path,'Distributions')[0] + \
 							'Distributions/vertex_names/' + name + '.csv'
@@ -121,9 +151,9 @@ class Netpro2vec:
 		return document_collections
 
 	def __get_document_collections(self, workers=4,tag_doc=True, encodew=True):
-		''' Generate doumnts for graphs 
-		    If multiple distribution are specified, documents are generated for each
-		    distribution, then merged ito una single vocabulary
+		''' Generate documents for graphs. 
+		    If multiple distributions are specified, documents are generated for each
+		    distribution, then merged ito una single vocabulary.
 		'''
 		document_collections_all = []
 		for prob_idx,prob_type in enumerate(self.prob_type):
@@ -154,12 +184,12 @@ class Netpro2vec:
 							words=prob_type_doc[
 							x], tags=["g_%d"%x]) for x in range(
 							0, len(prob_type_doc))])
-				for prob_type_doc in document_collections_all:
-					self.document_collections_list.append([
-						models.doc2vec.TaggedDocument(words=prob_type_doc[x],
-													  tags=["g_%d"%x]) for x in
-						range(0, len(prob_type_doc))])
-
+				# I think this is a not-needed duplication
+				#for prob_type_doc in document_collections_all:
+				#	self.document_collections_list.append([
+				#		models.doc2vec.TaggedDocument(words=prob_type_doc[x],
+				#									  tags=["g_%d"%x]) for x in
+				#		range(0, len(prob_type_doc))])
 			else:
 				self.document_collections_list = document_collections_all
 		else:
@@ -176,9 +206,15 @@ class Netpro2vec:
 
 	def __run_d2v(self, dimensions=128, min_count=5,down_sampling=0.0001,
 					workers=4, epochs=10, learning_rate=0.025):
+		''' Run Doc2Vec library to:
+		    1) produce the vocabulary from the list of documents representing the graphs
+		    2) train the model on the vocabulary.
+		    3) produce the embedding matrix, then store in the "embedding" attribute of the 
+		    Netpro2vec object.
+		'''
 		idx = 0
 		if len(self.prob_type) > 1:
-			idx += len(self.prob_type) + 1
+			idx = len(self.prob_type) - 1
 		utils.vprint("Doc2Vec embedding in progress...", end='', verbose=self.verbose)
 		model = models.doc2vec.Doc2Vec(self.document_collections_list[idx],
 						vector_size=dimensions,
