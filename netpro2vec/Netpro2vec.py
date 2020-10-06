@@ -163,7 +163,7 @@ class Netpro2vec:
 				tag = True
 			prob_mats = self.probmats[prob_type]
 			utils.vprint("Building vocabulary for %s..."%prob_type, verbose=self.verbose)			
-			document_collections = Parallel(n_jobs=workers)(delayed(self.__batch_feature_extractor)(p, str(i), prob_type, tag=tag,
+			document_collections = Parallel(n_jobs=workers)(self.__batch_feature_extractor(p, str(i), prob_type, tag=tag,
 											extractor=self.extractor[prob_idx],
 											encodew=encodew,
 											cut=self.cut_off[prob_idx],
