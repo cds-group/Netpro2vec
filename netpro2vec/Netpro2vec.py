@@ -140,7 +140,7 @@ class Netpro2vec:
 				agg_by=aggregate, return_prob=True,
 				remove_inf=self.remove_inf)
 
-		document_collections = ProbDocExtractor(probability_distrib_matrix,
+		document_collections = ProbDocExtractor(probability_distrib_matrix.toarray(),
 													name, word_tag,
 													extractor=extractor,
 													tag=tag, encodew=encodew,
