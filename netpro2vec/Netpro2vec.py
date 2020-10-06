@@ -136,11 +136,11 @@ class Netpro2vec:
 			vertex_labels = None
 		if aggregate > 0 or cut > 0:
 			probability_distrib_matrix = probability_aggregator_cutoff(
-				probability_distrib_matrix.toarray(), cut_off=cut,
+				probability_distrib_matrix, cut_off=cut,
 				agg_by=aggregate, return_prob=True,
 				remove_inf=self.remove_inf)
 
-		document_collections = ProbDocExtractor(probability_distrib_matrix.toarray(),
+		document_collections = ProbDocExtractor(probability_distrib_matrix,
 													name, word_tag,
 													extractor=extractor,
 													tag=tag, encodew=encodew,
