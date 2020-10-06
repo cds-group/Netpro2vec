@@ -83,6 +83,10 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../model.html">Netpro2vec model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../distrib.html">Distribution Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extractor.html">Document Extractor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
 </ul>
 
@@ -334,12 +338,12 @@
 							<span class="n">words</span><span class="o">=</span><span class="n">prob_type_doc</span><span class="p">[</span>
 							<span class="n">x</span><span class="p">],</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;g_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
 							<span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prob_type_doc</span><span class="p">))])</span>
-				<span class="k">for</span> <span class="n">prob_type_doc</span> <span class="ow">in</span> <span class="n">document_collections_all</span><span class="p">:</span>
-					<span class="bp">self</span><span class="o">.</span><span class="n">document_collections_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span>
-						<span class="n">models</span><span class="o">.</span><span class="n">doc2vec</span><span class="o">.</span><span class="n">TaggedDocument</span><span class="p">(</span><span class="n">words</span><span class="o">=</span><span class="n">prob_type_doc</span><span class="p">[</span><span class="n">x</span><span class="p">],</span>
-													  <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;g_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>
-						<span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prob_type_doc</span><span class="p">))])</span>
-
+				<span class="c1"># I think this is a not-needed duplication</span>
+				<span class="c1">#for prob_type_doc in document_collections_all:</span>
+				<span class="c1">#	self.document_collections_list.append([</span>
+				<span class="c1">#		models.doc2vec.TaggedDocument(words=prob_type_doc[x],</span>
+				<span class="c1">#									  tags=[&quot;g_%d&quot;%x]) for x in</span>
+				<span class="c1">#		range(0, len(prob_type_doc))])</span>
 			<span class="k">else</span><span class="p">:</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">document_collections_list</span> <span class="o">=</span> <span class="n">document_collections_all</span>
 		<span class="k">else</span><span class="p">:</span>
@@ -364,7 +368,7 @@
 <span class="sd">		&#39;&#39;&#39;</span>
 		<span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
 		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_type</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-			<span class="n">idx</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_type</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+			<span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_type</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 		<span class="n">utils</span><span class="o">.</span><span class="n">vprint</span><span class="p">(</span><span class="s2">&quot;Doc2Vec embedding in progress...&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
 		<span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">doc2vec</span><span class="o">.</span><span class="n">Doc2Vec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">document_collections_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
 						<span class="n">vector_size</span><span class="o">=</span><span class="n">dimensions</span><span class="p">,</span>

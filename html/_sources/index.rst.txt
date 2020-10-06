@@ -10,26 +10,10 @@ Welcome to Netpro2vec's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
-Netpro2vecAPI Netpro2vec model
-==============================
-.. autoclass:: netpro2vec.Netpro2vec
-	:members:
-
-Netpro2vecAPI Distribution Generator
-====================================
-.. autoclass:: netpro2vec.DistributionGenerator
-	:members:
-
-Netpro2vecAPI Document Extractor
-================================
-.. autoclass:: netpro2vec.ProbDocExtractor
-	:members:
-
-Netpro2vecAPI utils
-==============================
-.. autofunction:: netpro2vec.utils
-	:source:
+   intro
+   model
+   distrib
+   extractor
 
 Indices and tables
 ==================
