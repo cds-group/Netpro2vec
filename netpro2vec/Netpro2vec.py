@@ -4,7 +4,7 @@
 # @File    : Netprob2vecmulti.py
 
 from tqdm import tqdm
-from joblib import Parallel, delayed
+from joblib import Parallel, delayed, parallel_backend
 from joblib import wrap_non_picklable_objects
 from joblib import parallel_backend
 from netpro2vec.ProbDocExtractor import ProbDocExtractor
@@ -19,7 +19,6 @@ import igraph as ig
 from typing import *
 
 """Netpro2vec base class."""
-
 
 class Netpro2vec:
 	"""The class implementation of "NETPRO2VEC" model for whole-graph embedding.
@@ -163,7 +162,8 @@ class Netpro2vec:
 				tag = True
 			prob_mats = self.probmats[prob_type]
 			utils.vprint("Building vocabulary for %s..."%prob_type, verbose=self.verbose)			
-			document_collections = Parallel(n_jobs=workers)(self.__batch_feature_extractor(p, str(i), prob_type, tag=tag,
+			with parallel_backend('threading', n_jobs=workers):
+				document_collections = Parallel()(self.__batch_feature_extractor(p, str(i), prob_type, tag=tag,
 											extractor=self.extractor[prob_idx],
 											encodew=encodew,
 											cut=self.cut_off[prob_idx],
