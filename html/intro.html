@@ -184,7 +184,7 @@ executing the <a href="#id1"><span class="problematic" id="id2">``</span></a>tes
      --aggregators <span class="m">0</span>
      --cutoffs <span class="m">0</span>.05
      --extractor <span class="m">1</span>
-     --S &lt;embed-filepath&gt;
+     --savefile &lt;embed-filepath&gt;
 </pre></div>
 </div>
 <p>This command takes as input the directory of the graphml files and the graph class labels file. It
@@ -193,7 +193,7 @@ produces an embedding (with 512 variables) based on NDD annotation. The node ann
 In the same <code class="docutils literal notranslate"><span class="pre">test.py</span></code> script the validation is implemented, as an example, by
 a ten-fold cross-validation with a SVM classifier (with linear kernel and default paramters) implemented in the <a class="reference external" href="https://scikit-learn.org/">scikit-learn</a> python library.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python test.py
-     --L &lt;embed-filepath&gt;
+     --loadfile &lt;embed-filepath&gt;
      --select
      --validate
 </pre></div>
