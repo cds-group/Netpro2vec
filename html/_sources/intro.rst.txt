@@ -31,7 +31,7 @@ executing the ``test.py``program:
 	     --aggregators 0
 	     --cutoffs 0.05
 	     --extractor 1
-	     --S <embed-filepath>
+	     --savefile <embed-filepath>
 
 This command takes as input the directory of the graphml files and the graph class labels file. It
 produces an embedding (with 512 variables) based on NDD annotation. The node annotation is parametrized by the aggregator, extractor and cut-off paramters. The resulting embeddings are saved (together with graph class labels) into the CSV file ``<embed-filepath>``.
@@ -43,7 +43,7 @@ a ten-fold cross-validation with a SVM classifier (with linear kernel and defaul
 .. code-block:: bash
 
 	$ python test.py
-	     --L <embed-filepath>
+	     --loadfile <embed-filepath>
 	     --select
 	     --validate
 
@@ -58,7 +58,7 @@ Running as a module
 
 .. code-block:: python
 
-	>>> from netpro2vec import Netpro2vec
+	>>> import netpro2vec
 
 
 Once the module is loaded, you can generate embedding with the following python code:
