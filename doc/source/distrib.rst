@@ -1,3 +1,7 @@
+
 Distributions processing
 ======================================
 
+.. automodule:: netpro2vec.DistributionGenerator
+	:noindex:
+	:members:

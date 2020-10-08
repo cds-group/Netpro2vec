@@ -33,6 +33,7 @@ release = '0.1.1'
 import sphinx_rtd_theme
 extensions = ['autoapi.extension',"sphinx_rtd_theme", 
 ]
+#autoapi_root = '../../html/autoapi'
 autoapi_dirs = ['../../netpro2vec']
 html_theme = "sphinx_rtd_theme"
 
