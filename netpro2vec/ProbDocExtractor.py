@@ -18,7 +18,7 @@ class ProbDocExtractor:
 	specify extractor for ordered/unordered/rounded/tagged/untagged
 	"""
 	def __init__(self, probability_distrib_matrix, doc_tag, word_tag=None,
-				 extractor=1, tag=True, encodew=True, vertex_label_path=None):
+				 extractor=1, tag=True, encodew=True, vertex_labels=None):
 		self.probability_distrib_matrix = probability_distrib_matrix
 		self.word_tag = word_tag
 		self.doc_tag = doc_tag
@@ -28,7 +28,7 @@ class ProbDocExtractor:
 		self.graph_document = []
 		self.extractor = extractor
 		self.tag = tag
-		self.vertex_label_path = vertex_label_path
+		self.vertex_labels = vertex_labels
 		if self.extractor == 1:
 			self.ordered_probability_extractor()
 		elif self.extractor == 2:
@@ -153,27 +153,31 @@ class ProbDocExtractor:
 
 	def get_graph_document(self):
 		if self.word_tag is not None:
-			if self.vertex_label_path is not None and 'tm' in self.word_tag:
-				vertex_labels = pd.read_csv(self.vertex_label_path).iloc[:,
-								0].tolist()
+			if self.vertex_labels is not None and 'tm' in self.word_tag:
+				vertex_labels = self.vertex_labels
 				self.features_graph = [[vertex_labels[i] for i in
 									self.features_graph[x]]
 								  for x in range(0, len(self.features_graph))]
 				[self.features_graph[i].insert(0, self.word_tag + '_' +
 											   str(vertex_labels[i])) for i in
 				 range(0, len(vertex_labels))]
-			elif self.vertex_label_path is not None and self.word_tag == 'ndd':
-				vertex_labels = pd.read_csv(self.vertex_label_path).iloc[:,
-								0].tolist()
+			elif self.vertex_labels is not None and self.word_tag == 'ndd':
+				vertex_labels = self.vertex_labels
 				[self.features_graph[i].insert(0, self.word_tag + '_' + str(
 					vertex_labels[i]))
 				 for i in range(0, len(vertex_labels))]
-			elif self.vertex_label_path is None:
+			elif self.vertex_labels is None:
 				[self.features_graph[i].insert(0, self.word_tag + '_' + str(i)) for i in
 				 range(0, len(self.features_graph))]
 		new_ind_list_node_seq = [("_".join(str(item) for item in new_ind)) for
 								 new_ind in self.features_graph]
 
+		# # uncomment to keep only unique words
+		# unique_words = []
+		# [unique_words.append(item) for item in new_ind_list_node_seq if item not in
+		#  unique_words]
+		# new_ind_list_node_seq = unique_words
+		# print(new_ind_list_node_seq)
 
 		if self.encode:
 			hash_object_list = [hashlib.md5(features.encode()) for features in

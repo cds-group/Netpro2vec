@@ -24,7 +24,10 @@ parser.add_argument('-l', "--labelfile", metavar='<labelfile>', type=str, help='
 parser.add_argument('-n', "--distributions", metavar='<distributions>', nargs='*',  type=str, default=['tm1'], help='list of distribution types (default: %(default)s)') 
 parser.add_argument('-c', "--cutoffs", metavar='<cutoffs>', nargs='*',  type=float, default=[0.1], help='list of cutoffs (default: %(default)s)') 
 parser.add_argument('-e', "--extractors", metavar='<extractors>', nargs='*',  type=int, default=[1], help='list of extractor indices (default: %(default)s)') 
-parser.add_argument('-a', "--aggregators", metavar='<aggregators>', nargs='*',  type=int, default=[0], help='list of aggregator indices (default: %(default)s)') 
+parser.add_argument('-a', "--aggregators", metavar='<aggregators>', nargs='*',  type=int, default=[0], help='list of aggregator indices (default: %(default)s)')
+parser.add_argument('-A', "--vertexattribute", metavar='<vertexattribute>',
+                    help='vertex attribute',
+                    required=False)
 parser.add_argument('-X', "--select", help="enable feature elimination (default disabled)", action='store_true')
 parser.add_argument('-V', "--validate", help="enable cross-validation (default disabled)", action='store_true')
 parser.add_argument('-v', "--verbose", help="enable verobose printing (default disabled)", action='store_true')
@@ -36,20 +39,20 @@ parser.add_argument('-x', "--extension", metavar="<extension>", type=str, defaul
 
 
 def load_graphs(input_path, dataname, labels, fmt='graphml',verbose=False):
-	_tqdm = tqdm.tqdm
-	if not verbose: _tqdm = utils.nop 
-	if os.path.isdir(input_path):
-		filenames = os.listdir(input_path)
-		utils.vprint("Loading " + dataname + " graphs with igraph...", verbose=verbose)
-		graph_list = []
-		targets = []
-		for f in _tqdm(filenames):
-			graph_list.append(ig.load(os.path.join(input_path, f),format=fmt))
-			targets += [labels[f.split('.')[0]]]
-		y = np.array(targets)
-		return graph_list,y 
-	else:
-		raise Exception("Problem opening input dir!")
+    _tqdm = tqdm.tqdm
+    if not verbose: _tqdm = utils.nop
+    if os.path.isdir(input_path):
+        filenames = os.listdir(input_path)
+        utils.vprint("Loading " + dataname + " graphs with igraph...", verbose=verbose)
+        graph_list = []
+        targets = []
+        for f in _tqdm(filenames):
+            graph_list.append(ig.load(os.path.join(input_path, f),format=fmt))
+            targets += [labels[f.split('.')[0]]]
+        y = np.array(targets)
+        return graph_list,y
+    else:
+        raise Exception("Problem opening input dir!")
 
 def main(args):
       tm = time.time()
@@ -63,7 +66,13 @@ def main(args):
         # read class labels
         labels= {}
         if not args.labelfile or not args.inputpath:
-        	raise Exception("Both --inputpath and --labelfile must be specified!")
+            raise Exception("Both --inputpath and --labelfile must be "
+                            "specified!")
+        if not args.vertexattribute:
+            vertex_attribute = None
+        else:
+            vertex_attribute = args.vertexattribute
+
         labelfile = open(args.labelfile)
         for row in list(csv.reader(labelfile, delimiter='\t')):
             labels[row[0]] = row[args.label_position]
@@ -73,7 +82,8 @@ def main(args):
         if args.verbose: print("Embeddings...")
         tm2 = time.time()
         model = Netpro2vec(dimensions=512, extractor=args.extractors,prob_type=args.distributions,
-				      cut_off=args.cutoffs, agg_by=args.aggregators,verbose=args.verbose)
+                      cut_off=args.cutoffs, agg_by=args.aggregators,
+						   verbose=args.verbose, vertex_attribute=vertex_attribute)
         model.fit(graphs)
         X = model.get_embedding()
         tm3 = time.time()
@@ -109,13 +119,13 @@ def main(args):
           if args.verbose: print("Reduced dataset " + str(X.shape[1]))
       tm7 = time.time()
       if args.validate:
-	      clf = SVC(kernel='linear')
-	      scoring = ['accuracy', 'precision_macro', "recall_macro", "f1_macro"]
-	      scores_cv = cross_validate(clf, X, y, scoring=scoring, cv=RepeatedStratifiedKFold(n_splits=10 , n_repeats=10, random_state=465), return_train_score=False)
-	      print('Acc Avg+Std:\t', (scores_cv['test_accuracy'] * 100).mean(), (scores_cv['test_accuracy'] * 100).std())
-	      print('Prec Avg+Std:\t', (scores_cv['test_precision_macro'] * 100).mean(),(scores_cv['test_precision_macro'] * 100).std())
-	      print('Recall Avg+Std:\t', (scores_cv['test_recall_macro'] * 100).mean(), (scores_cv['test_recall_macro'] * 100).std())
-	      print('F1 Avg+Std:\t', (scores_cv['test_f1_macro'] * 100).mean(), (scores_cv['test_f1_macro'] * 100).std())
+          clf = SVC(kernel='linear')
+          scoring = ['accuracy', 'precision_macro', "recall_macro", "f1_macro"]
+          scores_cv = cross_validate(clf, X, y, scoring=scoring, cv=RepeatedStratifiedKFold(n_splits=10 , n_repeats=10, random_state=465), return_train_score=False)
+          print('Acc Avg+Std:\t', (scores_cv['test_accuracy'] * 100).mean(), (scores_cv['test_accuracy'] * 100).std())
+          print('Prec Avg+Std:\t', (scores_cv['test_precision_macro'] * 100).mean(),(scores_cv['test_precision_macro'] * 100).std())
+          print('Recall Avg+Std:\t', (scores_cv['test_recall_macro'] * 100).mean(), (scores_cv['test_recall_macro'] * 100).std())
+          print('F1 Avg+Std:\t', (scores_cv['test_f1_macro'] * 100).mean(), (scores_cv['test_f1_macro'] * 100).std())
       tm8 = time.time()
       print('Time Load: %.2f Embed: %.2f Scaling: %.2f Elim: %.2f Validate: %.2f Tot: %.2f '%(tm1-tm0, tm3-tm2, tm5-tm4,tm7-tm6, tm8-tm7,tm8-tm))
 

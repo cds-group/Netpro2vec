@@ -53,10 +53,12 @@ class Netpro2vec:
 	def __init__(self, format="graphml", dimensions=128, prob_type: List[str]=["tm1"], 
 		         extractor=[1],cut_off=[0.01], agg_by=[5],
 		         min_count=5, down_sampling=0.0001,workers=4, epochs=10, learning_rate=0.025, 
-				 remove_inf=False, vertex_labels=False, seed=0, verbose=False):
+				 remove_inf=False, vertex_attribute=None, seed=0,
+				 verbose=False):
 		"""Creatinng the model."""
 		if len({len(i) for i in [prob_type,extractor,cut_off,agg_by]}) != 1:
-			raise Exception("Probability type list must be equalsize wrt aggregator and cutoff arguments")	
+			raise Exception("Probability type list must be equalsize wrt "
+							"aggregator and cutoff arguments")
 		if any(a < 0 or a > 6 for (a) in agg_by):	
 		    raise Exception("Extractor level must be in the range [1, 6]")
 		if dimensions < 0: 
@@ -69,7 +71,8 @@ class Netpro2vec:
 		self.agg_by = agg_by
 		self.dimensions = dimensions
 		self.remove_inf = remove_inf
-		self.vertex_labels = vertex_labels
+		self.vertex_attribute = vertex_attribute
+		self.vertex_attribute_list = []
 		self.embedding = None
 		self.probmats = {}
 		self.min_count=min_count 
@@ -95,6 +98,8 @@ class Netpro2vec:
 		self.format = format
 		self.num_graphs = len(graphs)
 		self.__generate_probabilities(graphs)
+		if self.vertex_attribute is not None:
+			self.get_vertex_attributes(graphs)
 		self.__get_document_collections()
 		self.__run_d2v(dimensions=self.dimensions,min_count=self.min_count,down_sampling=self.down_sampling,
 					workers=self.workers, epochs=self.epochs, learning_rate=self.learning_rate)
@@ -128,9 +133,8 @@ class Netpro2vec:
 		    by concatenating distribution matrix data 
 		    (NDD or TM<int>) for each node in the graph. 
 		'''
-		if self.vertex_labels:
-			vertex_labels = str.split(path,'Distributions')[0] + \
-							'Distributions/vertex_names/' + name + '.csv'
+		if self.vertex_attribute is not None:
+			vertex_labels = self.vertex_attribute_list[int(name)]
 		else:
 			vertex_labels = None
 		if aggregate > 0 or cut > 0:
@@ -143,13 +147,22 @@ class Netpro2vec:
 													name, word_tag,
 													extractor=extractor,
 													tag=tag, encodew=encodew,
-													vertex_label_path=vertex_labels)
+													vertex_labels=vertex_labels)
 		# perfrom Garbage Collecting
 		#del probability_distrib_matrix
 		#gc.collect()         
 		return document_collections
 
-	def __get_document_collections(self, workers=4,tag_doc=True, encodew=True):
+	def get_vertex_attributes(self, graphs):
+		if self.vertex_attribute in graphs[0].vs.attributes():
+			self.vertex_attribute_list = [graphs[x].vs[self.vertex_attribute]
+										  for x in range(0, len(graphs))]
+		else:
+			print('The graph has no attribute:', self.vertex_attribute,
+				  ", setting vertex_attribute to None...")
+			self.vertex_attribute = None
+
+	def __get_document_collections(self, workers=4, tag_doc=True, encodew=True):
 		''' Generate documents for graphs. 
 		    If multiple distributions are specified, documents are generated for each
 		    distribution, then merged ito una single vocabulary.
@@ -167,7 +180,8 @@ class Netpro2vec:
 											extractor=self.extractor[prob_idx],
 											encodew=encodew,
 											cut=self.cut_off[prob_idx],
-											aggregate=self.agg_by[prob_idx]) for i,p in enumerate(self.tqdm(prob_mats)))
+											aggregate=self.agg_by[prob_idx])
+												  for i, p in enumerate(self.tqdm(prob_mats)))
 			document_collections = [document_collections[
 										x].graph_document for x in
 									range(0, len(document_collections))]
