@@ -14,9 +14,6 @@ Netpro2vec's documentation!
    distrib
    extract
    model
-   autoapi/index
-
-
 
 Indices and tables
 ==================

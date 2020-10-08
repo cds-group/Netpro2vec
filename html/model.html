@@ -37,7 +37,6 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="autoapi/index.html" />
     <link rel="prev" title="Document Extractor" href="extract.html" /> 
 </head>
 
@@ -157,6 +156,60 @@
             
   <div class="section" id="the-netpro2vec-model-class">
 <h1>The Netpro2vec Model class<a class="headerlink" href="#the-netpro2vec-model-class" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.Netpro2vec.</code><code class="sig-name descname">Netpro2vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'graphml'</span></em>, <em class="sig-param"><span class="n">dimensions</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">prob_type</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">['tm1']</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">[1]</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">[0.01]</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">[5]</span></em>, <em class="sig-param"><span class="n">min_count</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">down_sampling</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">0.025</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertex_labels</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span></dt>
+<dd><p>The class implementation of “NETPRO2VEC” model for whole-graph embedding.
+from the IEEE TCBB ‘20 paper “Netpro2vec: a Graph Embedding Framework for Biological Networks”. The procedure
+uses probability distribution representations of graphs and skip-gram learning modelor later.</p>
+<dl>
+<dt>Args:</dt><dd><p><strong>format</strong> <em>(str, optional)</em> -  graph format. Dfault is “graphml”</p>
+<p><strong>dimensions</strong> <em>(int, optional)</em> – number of features. Default is 128.</p>
+<p><strong>rob_type</strong> <em>(list of str, optional)</em> –  list of probability types. Default is [“tm1”] (allowed values: “ndd”, “tm&lt;int&gt;”).</p>
+<p><strong>cut_off</strong> <em>(list of float, optional)</em> –  list of cut-off thresholds to form words. Default is [0.01].</p>
+<p><strong>agg_by</strong> <em>(list of int, optional</em> – list of numbers of aggregators in words. Default is [0].</p>
+<p><strong>walk</strong> <em>(int, optional)</em> –  number of random walks in TM calculation. Default is 1.</p>
+<p><strong>min_count</strong> <em>(int, optional)</em> – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5</p>
+<p><strong>workers</strong> <em>(int, optional)</em> – use these many worker threads to train the model (Doc2Vec). Default is 4</p>
+<p><strong>epochs</strong> <em>(int, optional)</em> – Number of iterations (epochs) over the corpus (Doc2Vec). Default is 10</p>
+<p><strong>remove_inf</strong> <em>(bool, optional)</em>: flag for removal of infinity value in histogram bins. Default is False.</p>
+<p><strong>vertex_labels</strong> <em>(bool, optional)</em>: flag to set if graphs have vertex labels to be considered. Default is False</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graphs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>igraph.Graph<span class="p">]</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Fitting method of Netpro2vec model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><strong>graphs</strong> <em>(List igraph.Graph objs)</em> - list of graphs in igraph format types.</p>
+</dd>
+<dt>Return:</dt><dd><p>The trained <strong>Netpro2vec</strong> model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_embedding</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Access embedding of Netpro2vec model.</p>
+<dl class="simple">
+<dt>Return:</dt><dd><p>The produced embedding in numpy array format (None if the mode was not trained).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_memberships</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Access last document list used for training the Netpro2vec model.</p>
+<dl class="simple">
+<dt>Return:</dt><dd><p>The document list used in last model training ([] if the model was never trained).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -166,8 +219,6 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="extract.html" class="btn btn-neutral float-left" title="Document Extractor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
