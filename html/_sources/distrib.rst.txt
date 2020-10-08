@@ -1,5 +1,5 @@
 
-Distributions processing
+Distributions Generator
 ======================================
 
 .. automodule:: netpro2vec.DistributionGenerator

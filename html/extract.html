@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The Netpro2vec Model class" href="model.html" />
-    <link rel="prev" title="Distributions processing" href="distrib.html" /> 
+    <link rel="prev" title="Distributions Generator" href="distrib.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,7 +86,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distrib.html">Distributions processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distrib.html">Distributions Generator</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Document Extractor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model.html">The Netpro2vec Model class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -157,10 +157,63 @@
             
   <div class="section" id="document-extractor">
 <h1>Document Extractor<a class="headerlink" href="#document-extractor" title="Permalink to this headline">¶</a></h1>
-<dl class="py attribute">
+<dl class="py class">
 <dt>
-<code class="sig-prename descclassname">netpro2vec.</code><code class="sig-name descname">ProbDocExtractor</code></dt>
-<dd><p>alias of <a class="reference internal" href="autoapi/netpro2vec/ProbDocExtractor/index.html#module-netpro2vec.ProbDocExtractor" title="netpro2vec.ProbDocExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">netpro2vec.ProbDocExtractor</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.ProbDocExtractor.</code><code class="sig-name descname">ProbDocExtractor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">probability_distrib_matrix</span></em>, <em class="sig-param"><span class="n">doc_tag</span></em>, <em class="sig-param"><span class="n">word_tag</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">tag</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">encodew</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">vertex_label_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span></dt>
+<dd><p>Feature extractor class for Netprob2vec
+Convert graph probability matrix to a document
+specify extractor for ordered/unordered/rounded/tagged/untagged</p>
+<dl class="py method">
+<dt>
+<code class="sig-name descname">ordered_probability_extractor</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Ordered sequence (decreasing probability) of nodes or bin index (of
+distances) for each rooted node converted to words
+This is for networks edge-weighted with real data like gene(perhaps not
+for weights with stat data like correlation or p-values - To be tested).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">ordered_probability_extractor_multi</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Ordered sequence (decreasing probability) of nodes or bin index (of
+distances) for each rooted node converted to words
+This is for networks edge-weighted with real data like gene(perhaps not
+for weights with stat data like correlation or p-values - To be tested).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">ordered_probability_extractor_round</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Ordered sequence (decreasing probability) of nodes or bin index (of
+distances) for each rooted node converted to words. round to 2,
+to be tested</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">prob_to_string_feature_extractor</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Node-wise probability values for each rooted node converted to words
+Does not really work, does not create high frequency words,
+so no vocabulary created.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">unordered_probability_extractor</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Unorodered sequence of nodes (non-neg probabilities) or bin index (of
+distances or node labels) for each rooted node converted to words. For
+LFR,
+unweighted synthetic data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">unordered_probability_extractor_round</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Ordered sequence (decreasing probability) of nodes or bin index (of
+distances) for each rooted node converted to words.  round to 2,
+to be tested properly.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -176,7 +229,7 @@
         <a href="model.html" class="btn btn-neutral float-right" title="The Netpro2vec Model class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="distrib.html" class="btn btn-neutral float-left" title="Distributions processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="distrib.html" class="btn btn-neutral float-left" title="Distributions Generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

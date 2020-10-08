@@ -37,7 +37,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Distributions processing" href="distrib.html" />
+    <link rel="next" title="Distributions Generator" href="distrib.html" />
     <link rel="prev" title="Netpro2vec’s documentation!" href="index.html" /> 
 </head>
 
@@ -88,9 +88,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-as-a-module">Running as a module</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="distrib.html">Distributions processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distrib.html">Distributions Generator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="extract.html">Document Extractor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="model.html">The Netpro2vec Model class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
@@ -172,15 +173,63 @@ to get the latest software release.</p>
 </div>
 <div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>you can test the <strong>Netpro2vec</strong> embedding method by
-executing the <a href="#id1"><span class="problematic" id="id2">``</span></a>test.py``program</p>
+<p>You can test the <strong>Netpro2vec</strong> embedding method by
+executing the <a href="#id1"><span class="problematic" id="id2">``</span></a>test.py``program:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python test.py
      --inputpath &lt;your-path-to-graph-dir&gt;
      --labelfile &lt;your-path-to-class-label-file&gt;
      --labelpos &lt;class-label-position-in-label-file&gt;
-     --dimensions &lt;your-chosen-no-of-features-to-produce&gt;
+     --dimensions <span class="m">512</span>
+     --distributions ndd
+     --aggregators <span class="m">0</span>
+     --cutoffs <span class="m">0</span>.05
+     --extractor <span class="m">1</span>
+     --S &lt;embed-filepath&gt;
+</pre></div>
+</div>
+<p>This command takes as input the directory of the graphml files and the graph class labels file. It
+produces an embedding (with 512 variables) based on NDD annotation. The node annotation is parametrized by the aggregator, extractor and cut-off paramters. The resulting embeddings are saved (together with graph class labels) into the CSV file <code class="docutils literal notranslate"><span class="pre">&lt;embed-filepath&gt;</span></code>.</p>
+<p>Once the embedding is saved into a CSV file, it can be use for classification with other external tools or toolkit (like Weka).
+In the same <code class="docutils literal notranslate"><span class="pre">test.py</span></code> script the validation is implemented, as an example, by
+a ten-fold cross-validation with a SVM classifier (with linear kernel and default paramters) implemented in the scikit-learn <a class="reference external" href="https://scikit-learn.org/">scikit-learn</a> python library.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python test.py
+     --L &lt;embed-filepath&gt;
      --select
      --validate
+</pre></div>
+</div>
+<p>The  <code class="docutils literal notranslate"><span class="pre">select</span></code> parameter enables embedding reduction by recursive feature elimination
+by SVM (RFE-SVM).</p>
+</div>
+<div class="section" id="running-as-a-module">
+<h2>Running as a module<a class="headerlink" href="#running-as-a-module" title="Permalink to this headline">¶</a></h2>
+<p><strong>Netpro2vec</strong> can be loaded as a module inside a python interpreter with the command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">netpro2vec</span> <span class="kn">import</span> <span class="n">Netpro2vec</span>
+</pre></div>
+</div>
+<p>Once the module is loaded, you can generate embedding with the following python code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;...your-path-to-graph-directory...&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filenames</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">igraph</span> <span class="k">as</span> <span class="nn">ig</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graphs</span> <span class="o">=</span> <span class="p">[</span><span class="n">ig</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">f</span><span class="p">))</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">netpro2vec.Netpro2vec</span> <span class="kn">import</span> <span class="n">Netpro2vec</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Netpro2vec</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">medel</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">graphs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">get_embedding</span><span class="p">()</span>
+<span class="go">array([[ 1.6579988e-04, -1.2643806e-03, -9.3608483e-04, ...,</span>
+<span class="go">         3.5708759e-03,  9.1854345e-05, -2.4944848e-05],</span>
+<span class="go">       [ 1.3941363e-03, -1.4870684e-04,  2.2236386e-03, ...,</span>
+<span class="go">         2.7858163e-03, -1.1076004e-03, -1.6276642e-03],</span>
+<span class="go">       [-7.9958932e-04,  3.7489494e-03, -2.2576803e-03, ...,</span>
+<span class="go">        -2.2035998e-03,  2.9178325e-03, -3.3222451e-03],</span>
+<span class="go">       ...,</span>
+<span class="go">       [ 1.9070054e-03,  2.5690219e-04, -1.7170990e-03, ...,</span>
+<span class="go">        -2.1398342e-03, -1.1024768e-03, -2.9834590e-03],</span>
+<span class="go">       [-3.7194900e-03,  4.5244402e-04, -6.9161621e-04, ...,</span>
+<span class="go">        -3.6566083e-03,  4.5301823e-04,  2.0657710e-04],</span>
+<span class="go">       [ 4.9070415e-05,  9.1010216e-04, -2.1217461e-03, ...,</span>
+<span class="go">        -2.5239761e-03, -2.7091724e-03,  9.7283931e-04]], dtype=float32)</span>
 </pre></div>
 </div>
 </div>
@@ -194,7 +243,7 @@ executing the <a href="#id1"><span class="problematic" id="id2">``</span></a>tes
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="distrib.html" class="btn btn-neutral float-right" title="Distributions processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="distrib.html" class="btn btn-neutral float-right" title="Distributions Generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Netpro2vec’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
