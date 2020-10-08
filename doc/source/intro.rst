@@ -38,7 +38,7 @@ produces an embedding (with 512 variables) based on NDD annotation. The node ann
 
 Once the embedding is saved into a CSV file, it can be use for classification with other external tools or toolkit (like Weka).
 In the same ``test.py`` script the validation is implemented, as an example, by 
-a ten-fold cross-validation with a SVM classifier (with linear kernel and default paramters) implemented in the scikit-learn `scikit-learn <https://scikit-learn.org/>`_ python library.
+a ten-fold cross-validation with a SVM classifier (with linear kernel and default paramters) implemented in the `scikit-learn <https://scikit-learn.org/>`_ python library.
 
 .. code-block:: bash
 
