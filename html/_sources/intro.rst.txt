@@ -58,7 +58,7 @@ Running as a module
 
 .. code-block:: python
 
-	>>> from netpro2vec import Netpro2vec
+	>>> import netpro2vec
 
 
 Once the module is loaded, you can generate embedding with the following python code:
