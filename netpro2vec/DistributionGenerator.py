@@ -13,12 +13,14 @@ from typing import *
 import re
 from . import utils
 
+
 class DistributionGenerator:
 	"""
 	Generator class for Node distance distribution and Transition probability
 	matrices
 	"""
-	def __init__(self, distrib_type, graphs: List[ig.Graph],common_bin_list=True,verbose=False):
+	def __init__(self, distrib_type, graphs: List[ig.Graph],
+				 common_bin_list=True, verbose=False):
 		self.verbose=verbose
 		self.tqdm = tqdm if self.verbose else utils.nop
 		self.distrib_type = distrib_type
@@ -54,7 +56,6 @@ class DistributionGenerator:
 		h_g = np.array([np.histogram(d[x], bins=self.bin_list)[0] for x in
 						range(0, num_nodes)])  # s.transpose()
 		distrib_mat = h_g / (num_nodes - 1)
-		#self.distrib_list.append(csr_matrix(distrib_mat))
 		self.distrib_list.append(distrib_mat)
 
 	def __get_transition_matrix(self, g, walk=1):
@@ -94,21 +95,24 @@ class DistributionGenerator:
 			# matrix
 			distrib_mat = walk_distances / dw
 		distrib_mat = distrib_mat.T
-		#self.distrib_list.append(csr_matrix(distrib_mat))
 		self.distrib_list.append(distrib_mat)
 
 	def __run_distib_comp(self):
 		if self.distrib_type == "ndd":
-			utils.vprint("Calculating Node Distance Distribution...", verbose=self.verbose)
+			utils.vprint("Calculating Node Distance Distribution...",
+						 verbose=self.verbose)
 			if self.calculate_bin_list:
 				self.__get_bins()
 			[self.__get_node_distance_distr(g) for g in self.tqdm(self.graph_list)]
 		elif self.matcher.match(self.distrib_type):   # match any 'tm<int>'
 			walk = int(self.distrib_type[2:])
-			utils.vprint("Calculating Transition Matrices %s ..."%self.distrib_type, verbose=self.verbose)
-			[self.__get_transition_matrix(g, walk=walk) for g in self.tqdm(self.graph_list)]
+			utils.vprint("Calculating Transition Matrices %s "
+						 "..."%self.distrib_type, verbose=self.verbose)
+			[self.__get_transition_matrix(g, walk=walk) for g in self.tqdm(
+				self.graph_list)]
 		else:
 			Exception("Wrong distribution selection %r"%self.distrib_type)
+
 
 def probability_aggregator_cutoff(probability_distrib_matrix, cut_off=0.01,
 									agg_by=5, return_prob=True,
@@ -119,10 +123,6 @@ def probability_aggregator_cutoff(probability_distrib_matrix, cut_off=0.01,
 												   probability_distrib_matrix[:,
 												   -1] >= 1), axis=0)
 	if agg_by > 0:
-		# for pandas df
-		# probability_distrib_matrix = pd.DataFrame(np.add.reduceat(
-		# 	probability_distrib_matrix.values, np.arange(len(
-		# 		probability_distrib_matrix.columns))[::agg_by], axis=1))
 		probability_distrib_matrix = pd.DataFrame(np.add.reduceat(
 			probability_distrib_matrix, np.arange(np.shape(
 				probability_distrib_matrix)[1])[::agg_by], axis=1))

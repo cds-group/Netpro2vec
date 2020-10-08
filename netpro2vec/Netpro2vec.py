@@ -158,9 +158,8 @@ class Netpro2vec:
 			self.vertex_attribute_list = [graphs[x].vs[self.vertex_attribute]
 										  for x in range(0, len(graphs))]
 		else:
-			print('The graph has no attribute:', self.vertex_attribute,
-				  ", setting vertex_attribute to None...")
-			self.vertex_attribute = None
+			raise Exception('The graph does not have the provided vertex '
+							'attribute in -A! ')
 
 	def __get_document_collections(self, workers=4, tag_doc=True, encodew=True):
 		''' Generate documents for graphs. 

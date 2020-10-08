@@ -167,8 +167,8 @@ class ProbDocExtractor:
 					vertex_labels[i]))
 				 for i in range(0, len(vertex_labels))]
 			elif self.vertex_labels is None:
-				[self.features_graph[i].insert(0, self.word_tag + '_' + str(i)) for i in
-				 range(0, len(self.features_graph))]
+				[self.features_graph[i].insert(0, self.word_tag + '_' + str(
+					i)) for i in range(0, len(self.features_graph))]
 		new_ind_list_node_seq = [("_".join(str(item) for item in new_ind)) for
 								 new_ind in self.features_graph]
 

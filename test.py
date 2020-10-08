@@ -77,13 +77,16 @@ def main(args):
         for row in list(csv.reader(labelfile, delimiter='\t')):
             labels[row[0]] = row[args.label_position]
         tm0 = time.time()
-        graphs,y = load_graphs(args.inputpath, dataname, labels, fmt=args.extension,verbose=args.verbose)
+        graphs,y = load_graphs(args.inputpath, dataname, labels,
+                               fmt=args.extension, verbose=args.verbose)
         tm1 = time.time()
         if args.verbose: print("Embeddings...")
         tm2 = time.time()
-        model = Netpro2vec(dimensions=512, extractor=args.extractors,prob_type=args.distributions,
+        model = Netpro2vec(dimensions=512, extractor=args.extractors,
+                           prob_type=args.distributions,
                       cut_off=args.cutoffs, agg_by=args.aggregators,
-						   verbose=args.verbose, vertex_attribute=vertex_attribute)
+						   verbose=args.verbose,
+                           vertex_attribute=vertex_attribute)
         model.fit(graphs)
         X = model.get_embedding()
         tm3 = time.time()
@@ -113,7 +116,9 @@ def main(args):
       tm6 = time.time()
       if args.select:
           clf = SVC(kernel="linear")
-          sfm = RFECV(estimator=clf, step=10, min_features_to_select=50, cv=StratifiedKFold(random_state=0,n_splits=5),scoring='accuracy')
+          sfm = RFECV(estimator=clf, step=10, min_features_to_select=50,
+                      cv=StratifiedKFold(random_state=0,n_splits=5),
+                      scoring='accuracy')
           sfm = sfm.fit(X, y)
           X = sfm.transform(X)
           if args.verbose: print("Reduced dataset " + str(X.shape[1]))
