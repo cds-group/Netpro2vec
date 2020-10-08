@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>netpro2vec.utils &mdash; Netpro2vec 0.1.0 documentation</title>
+  <title>netpro2vec.utils &mdash; Netpro2vec 0.1.1 documentation</title>
   
 
   
@@ -36,7 +36,8 @@
 
     
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="netpro2vec.ProbDocExtractor" href="../ProbDocExtractor/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,12 +83,24 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../model.html">Netpro2vec model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../distrib.html">Distribution Generator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../extractor.html">Document Extractor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../distrib.html">Distributions processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extract.html">Document Extractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../model.html">The Netpro2vec Model class</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../DistributionGenerator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.DistributionGenerator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Netpro2vec/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.Netpro2vec</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ProbDocExtractor/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.ProbDocExtractor</span></code></a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -134,6 +147,10 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
+          <li><a href="../../index.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a> &raquo;</li>
+        
       <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.utils</span></code></li>
     
     
@@ -175,12 +192,12 @@
 </table>
 <dl class="py function">
 <dt id="netpro2vec.utils.nop">
-<code class="sig-prename descclassname">netpro2vec.utils.</code><code class="sig-name descname">nop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">it</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">k</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/netpro2vec/utils.html#nop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#netpro2vec.utils.nop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">netpro2vec.utils.</code><code class="sig-name descname">nop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">it</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">a</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">k</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.utils.nop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="netpro2vec.utils.vprint">
-<code class="sig-prename descclassname">netpro2vec.utils.</code><code class="sig-name descname">vprint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">verbose</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">'\n'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/netpro2vec/utils.html#vprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#netpro2vec.utils.vprint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">netpro2vec.utils.</code><code class="sig-name descname">vprint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">verbose</span></em>, <em class="sig-param"><span class="n">end</span><span class="o">=</span><span class="default_value">'\n'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.utils.vprint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -192,6 +209,13 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../ProbDocExtractor/index.html" class="btn btn-neutral float-left" title="netpro2vec.ProbDocExtractor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

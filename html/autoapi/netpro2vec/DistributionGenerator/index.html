@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>netpro2vec.DistributionGenerator &mdash; Netpro2vec 0.1.0 documentation</title>
+  <title>netpro2vec.DistributionGenerator &mdash; Netpro2vec 0.1.1 documentation</title>
   
 
   
@@ -36,7 +36,9 @@
 
     
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="netpro2vec.Netpro2vec" href="../Netpro2vec/index.html" />
+    <link rel="prev" title="netpro2vec" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,12 +84,24 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../model.html">Netpro2vec model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../distrib.html">Distribution Generator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../extractor.html">Document Extractor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../distrib.html">Distributions processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extract.html">Document Extractor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../model.html">The Netpro2vec Model class</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.DistributionGenerator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Netpro2vec/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.Netpro2vec</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ProbDocExtractor/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.ProbDocExtractor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.utils</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -133,6 +147,10 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a> &raquo;</li>
         
       <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.DistributionGenerator</span></code></li>
     
@@ -186,12 +204,12 @@
 </table>
 <dl class="py class">
 <dt id="netpro2vec.DistributionGenerator.DistributionGenerator">
-<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.DistributionGenerator.</code><code class="sig-name descname">DistributionGenerator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">distrib_type</span></em>, <em class="sig-param"><span class="n">graphs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ig.Graph<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">common_bin_list</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/netpro2vec/DistributionGenerator.html#DistributionGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#netpro2vec.DistributionGenerator.DistributionGenerator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.DistributionGenerator.</code><code class="sig-name descname">DistributionGenerator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">distrib_type</span></em>, <em class="sig-param"><span class="n">graphs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ig.Graph<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">common_bin_list</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.DistributionGenerator.DistributionGenerator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generator class for Node distance distribution and Transition probability
 matrices</p>
 <dl class="py method">
 <dt id="netpro2vec.DistributionGenerator.DistributionGenerator.get_distributions">
-<code class="sig-name descname">get_distributions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/netpro2vec/DistributionGenerator.html#DistributionGenerator.get_distributions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#netpro2vec.DistributionGenerator.DistributionGenerator.get_distributions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_distributions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.DistributionGenerator.DistributionGenerator.get_distributions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -218,7 +236,7 @@ matrices</p>
 
 <dl class="py function">
 <dt id="netpro2vec.DistributionGenerator.probability_aggregator_cutoff">
-<code class="sig-prename descclassname">netpro2vec.DistributionGenerator.</code><code class="sig-name descname">probability_aggregator_cutoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">probability_distrib_matrix</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">return_prob</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/netpro2vec/DistributionGenerator.html#probability_aggregator_cutoff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#netpro2vec.DistributionGenerator.probability_aggregator_cutoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">netpro2vec.DistributionGenerator.</code><code class="sig-name descname">probability_aggregator_cutoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">probability_distrib_matrix</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">return_prob</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.DistributionGenerator.probability_aggregator_cutoff" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -230,6 +248,15 @@ matrices</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Netpro2vec/index.html" class="btn btn-neutral float-right" title="netpro2vec.Netpro2vec" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="netpro2vec" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
