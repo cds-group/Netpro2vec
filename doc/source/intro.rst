@@ -90,8 +90,8 @@ Once the module is loaded, you can generate embedding with the following python 
 Parameters for word creation
 ****************************
 
-cut_off: Only the node labels (for the Transition matrix) and the distances
-(for node distance distribution) above this threshold are used for building
+cut_off: Only the node labels (for TM) and the distances
+(for NDD) above this threshold are used for building
 the word.
 
 agg_by: The number of bins in the NDD by default is equal to the maximum
