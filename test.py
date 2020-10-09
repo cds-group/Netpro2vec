@@ -25,9 +25,7 @@ parser.add_argument('-n', "--distributions", metavar='<distributions>', nargs='*
 parser.add_argument('-c', "--cutoffs", metavar='<cutoffs>', nargs='*',  type=float, default=[0.1], help='list of cutoffs (default: %(default)s)') 
 parser.add_argument('-e', "--extractors", metavar='<extractors>', nargs='*',  type=int, default=[1], help='list of extractor indices (default: %(default)s)') 
 parser.add_argument('-a', "--aggregators", metavar='<aggregators>', nargs='*',  type=int, default=[0], help='list of aggregator indices (default: %(default)s)')
-parser.add_argument('-A', "--vertexattribute", metavar='<vertexattribute>',
-                    help='vertex attribute',
-                    required=False)
+parser.add_argument('-A', "--vertexattribute", metavar='<vertexattribute>', type=str, help='vertex attribute', required=False)
 parser.add_argument('-X', "--select", help="enable feature elimination (default disabled)", action='store_true')
 parser.add_argument('-V', "--validate", help="enable cross-validation (default disabled)", action='store_true')
 parser.add_argument('-v', "--verbose", help="enable verobose printing (default disabled)", action='store_true')
@@ -68,11 +66,6 @@ def main(args):
         if not args.labelfile or not args.inputpath:
             raise Exception("Both --inputpath and --labelfile must be "
                             "specified!")
-        if not args.vertexattribute:
-            vertex_attribute = None
-        else:
-            vertex_attribute = args.vertexattribute
-
         labelfile = open(args.labelfile)
         for row in list(csv.reader(labelfile, delimiter='\t')):
             labels[row[0]] = row[args.label_position]
@@ -84,9 +77,9 @@ def main(args):
         tm2 = time.time()
         model = Netpro2vec(dimensions=512, extractor=args.extractors,
                            prob_type=args.distributions,
-                      cut_off=args.cutoffs, agg_by=args.aggregators,
-						   verbose=args.verbose,
-                           vertex_attribute=vertex_attribute)
+                           cut_off=args.cutoffs, agg_by=args.aggregators,
+                           verbose=args.verbose,
+                           vertex_attribute=args.vertexattribute)
         model.fit(graphs)
         X = model.get_embedding()
         tm3 = time.time()

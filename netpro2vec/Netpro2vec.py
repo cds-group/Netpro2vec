@@ -86,6 +86,22 @@ class Netpro2vec:
 		self.verbose = verbose
 		self.tqdm = tqdm if self.verbose else utils.nop
 
+	def get_documents(self, graphs: List[ig.Graph]):
+		"""Document generator method of Netpro2vec model.
+
+	    Args:
+	        **graphs** *(List igraph.Graph objs)* - list of graphs in igraph format types.
+
+	    Return:
+			The lisy of documents representing the graphs.
+	    """
+		self.num_graphs = len(graphs)
+		self.__generate_probabilities(graphs)
+		if self.vertex_attribute is not None:
+			self.get_vertex_attributes(graphs)
+		self.__get_document_collections(tag_doc=False)
+		return [ " ".join(doc) for doc in self.document_collections_list[-1]]
+
 	def fit(self, graphs: List[ig.Graph]):
 		"""Fitting method of Netpro2vec model.
 
