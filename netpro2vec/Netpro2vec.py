@@ -97,6 +97,8 @@ class Netpro2vec:
 	    """
 		self.num_graphs = len(graphs)
 		self.__generate_probabilities(graphs)
+		if self.vertex_attribute is not None:
+			self.get_vertex_attributes(graphs)
 		self.__get_document_collections(tag_doc=False)
 		return [ " ".join(doc) for doc in self.document_collections_list[-1]]
 
