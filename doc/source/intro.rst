@@ -86,19 +86,3 @@ Once the module is loaded, you can generate embedding with the following python 
 	        -3.6566083e-03,  4.5301823e-04,  2.0657710e-04],
 	       [ 4.9070415e-05,  9.1010216e-04, -2.1217461e-03, ...,
 	        -2.5239761e-03, -2.7091724e-03,  9.7283931e-04]], dtype=float32)
-
-Parameters for word creation
-****************************
-
-cut_off: Only the node labels (for TM) and the distances
-(for NDD) above this threshold are used for building
-the word.
-
-agg_by: The number of bins in the NDD by default is equal to the maximum
-diameter of all the graphs under study. When this parameter is increased the
-number of bins is decreased (Aggregation of the columns of NDD).
-
-extractor: 1 and 6 are functional and tested. Extractor 1 returns words only
-from a single cut off passed in cut_off. Extractor 6 returns multiple words
-of different lengths from different probability cut offs (For now set to
-- 0, 0.1, 0.3, 0.5, 'To be changed so as to pass as an argument').
