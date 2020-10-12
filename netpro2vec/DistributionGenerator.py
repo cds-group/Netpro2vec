@@ -13,11 +13,14 @@ from typing import *
 import re
 from . import utils
 
+"""
+This is my comment
+"""
 
 class DistributionGenerator:
 	"""
-	Generator class for Node distance distribution and Transition probability
-	matrices
+	Generator class for Node Distance Distribution and Transition probability
+	matrices.
 	"""
 	def __init__(self, distrib_type, graphs: List[ig.Graph],
 				 common_bin_list=True, verbose=False):

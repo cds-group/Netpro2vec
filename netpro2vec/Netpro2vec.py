@@ -18,10 +18,14 @@ import itertools
 import igraph as ig
 from typing import *
 
-"""Netpro2vec base class."""
+"""
+Netrpo2vec.py
+====================================
+The core module of Netpro2vec software.
+"""
 
 class Netpro2vec:
-	"""The class implementation of "NETPRO2VEC" model for whole-graph embedding.
+	"""The class implementation of Netpro2vec model for whole-graph embedding.
     from the IEEE TCBB '20 paper "Netpro2vec: a Graph Embedding Framework for Biological Networks". The procedure
     uses probability distribution representations of graphs and skip-gram learning modelor later.
 
@@ -36,7 +40,7 @@ class Netpro2vec:
         with a transition probability above a cut-off threshold. 
 
         **cut_off** *(list of float, optional)* –  list of cut-off thresholds to form words for each node. Default is [0.01].
-        Only the labels (or ids) of nodes with transition probability (for "tm<wald-distance>") or with distance (for "ndd") 
+        Only the labels (or ids) of nodes with transition probability (for "tm<walk-distance>") or with distance (for "ndd") 
         above this threshold are used for building the word.
 
         **agg_by** *(list of int, optional)* – list of *aggregators* in words formed with "ndd" annotation. Default is [0].
