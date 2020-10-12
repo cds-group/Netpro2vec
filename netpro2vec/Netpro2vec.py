@@ -30,13 +30,28 @@ class Netpro2vec:
 
         **dimensions** *(int, optional)* – number of features. Default is 128.
 
-        **rob_type** *(list of str, optional)* –  list of probability types. Default is ["tm1"] (allowed values: "ndd", "tm<int>").
+        **prob_type** *(list of str, optional)* –  list of probability types. Default is ["tm1"] (allowed values: "ndd", "tm<walk-distance>").
+        "ndd" means that a word for each node is formed by concatenating labels (or node ids) of nodes whose distance above a cut-off threshold with respect to the source node.
+        "tm<walf-distance>" means that a word for each node is formed  by concatenating node labels (or node ids) which are reacheable by the source node
+        with a transition probability above a cut-off threshold. 
 
-        **cut_off** *(list of float, optional)* –  list of cut-off thresholds to form words. Default is [0.01].
+        **cut_off** *(list of float, optional)* –  list of cut-off thresholds to form words for each node. Default is [0.01].
+        Only the labels (or ids) of nodes with transition probability (for "tm<wald-distance>") or with distance (for "ndd") 
+        above this threshold are used for building the word.
 
-        **agg_by** *(list of int, optional* – list of numbers of aggregators in words. Default is [0].
+        **agg_by** *(list of int, optional)* – list of *aggregators* in words formed with "ndd" annotation. Default is [0].
+        The number of bins used to build the Node Distance Distribution histogram is scaled down by
+        the "agg_by" value. A unity value means that the number of bins is set to the maximum diameter.
+        A value *n* means that the number of bins is equalt to *max-diameter/n*.
+        A zero value means that this paramter does not apply to the annotation (i.e. "tm<walk-distance>").   
 
-        **walk** *(int, optional)* –  number of random walks in TM calculation. Default is 1.
+        **extractor** *(list of int, optional)* – list of *extractor modes* in builidng words, one modality for each specified annotation. 
+        Default is [0]. Currently, only extractor 1 and 6 are supported. 
+        With respect to the corresponding annotation in the **prob_type** list: 
+        - extractor 1 returns words only from a single cut off. 
+        - extractor 6 returns multiple words of different lengths from different 
+        probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
+        Extractor modalities 2-5 are not supported since they are under cunstruction.
 
         **min_count** *(int, optional)* – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5
 
@@ -57,10 +72,15 @@ class Netpro2vec:
 				 verbose=False):
 		"""Creatinng the model."""
 		if len({len(i) for i in [prob_type,extractor,cut_off,agg_by]}) != 1:
-			raise Exception("Probability type list must be equalsize wrt "
-							"aggregator and cutoff arguments")
-		if any(a < 0 or a > 6 for (a) in agg_by):	
-		    raise Exception("Extractor level must be in the range [1, 6]")
+			raise Exception("Probability type list must be equal-sized wrt aggregator and cutoff arguments")
+		for i,a in enumerate(agg_by):
+			if prob_type[i] != "ndd" and a != 0:	
+				raise Exception("Aggregators values for tm must be 0 (disabled)")
+			else:
+				if a < 1 or a > 10:
+					raise Exception("Aggregators values for ndd must be in the range [1,10]")
+		if any(e != 1 and e != 6 for (e) in extractor):	
+			raise Exception("Supported extractor modes are 1 (single cut-off) and 6 (multiple cut-offs)")
 		if dimensions < 0: 
 			raise Exception("Dimensions must be >0 (default 128)")
 		if format not in ["graphml", "edgelist"]: 
