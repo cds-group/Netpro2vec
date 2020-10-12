@@ -16,7 +16,7 @@ Classes
 
 
 
-.. py:class:: ProbDocExtractor(probability_distrib_matrix, doc_tag, word_tag=None, extractor=1, tag=True, encodew=True, vertex_label_path=None)
+.. py:class:: ProbDocExtractor(probability_distrib_matrix, doc_tag, word_tag=None, extractor=1, tag=True, encodew=True, vertex_labels=None)
 
    Feature extractor class for Netprob2vec
    Convert graph probability matrix to a document

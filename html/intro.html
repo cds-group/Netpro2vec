@@ -188,8 +188,8 @@ executing the <a href="#id1"><span class="problematic" id="id2">``</span></a>tes
 </pre></div>
 </div>
 <p>This command takes as input the directory of the graphml files and the graph class labels file. It
-produces an embedding (with 512 variables) based on NDD annotation. The node annotation is parametrized by the aggregator, extractor and cut-off paramters. The resulting embeddings are saved (together with graph class labels) into the CSV file <code class="docutils literal notranslate"><span class="pre">&lt;embed-filepath&gt;</span></code>.</p>
-<p>Once the embedding is saved into a CSV file, it can be use for classification with other external tools or toolkit (like Weka).
+produces an embedding (with 512 variables) based on NDD annotation. The node annotation is parametrized by the aggregator, extractor and cut-off paramters. The resulting embeddings are saved (together with graph class labels) into the CSV file <code class="docutils literal notranslate"><span class="pre">&lt;embed-filepath&gt;</span></code>.
+Once the embedding is saved into a CSV file, it can be use for classification with other external tools or toolkit (like Weka).
 In the same <code class="docutils literal notranslate"><span class="pre">test.py</span></code> script the validation is implemented, as an example, by
 a ten-fold cross-validation with a SVM classifier (with linear kernel and default paramters) implemented in the <a class="reference external" href="https://scikit-learn.org/">scikit-learn</a> python library.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python test.py
