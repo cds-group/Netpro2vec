@@ -26,8 +26,8 @@ Functions
 
 .. py:class:: DistributionGenerator(distrib_type, graphs: List[ig.Graph], common_bin_list=True, verbose=False)
 
-   Generator class for Node distance distribution and Transition probability
-   matrices
+   Generator class for Node Distance Distribution and Transition probability
+   matrices.
 
    .. method:: get_distributions(self)
 

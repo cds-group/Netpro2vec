@@ -18,7 +18,7 @@ Classes
 
 .. py:class:: Netpro2vec(format='graphml', dimensions=128, prob_type: List[str] = ['tm1'], extractor=[1], cut_off=[0.01], agg_by=[5], min_count=5, down_sampling=0.0001, workers=4, epochs=10, learning_rate=0.025, remove_inf=False, vertex_attribute=None, seed=0, verbose=False)
 
-   The class implementation of "NETPRO2VEC" model for whole-graph embedding.
+   The class implementation of Netpro2vec model for whole-graph embedding.
    from the IEEE TCBB '20 paper "Netpro2vec: a Graph Embedding Framework for Biological Networks". The procedure
    uses probability distribution representations of graphs and skip-gram learning modelor later.
 
@@ -33,7 +33,7 @@ Classes
        with a transition probability above a cut-off threshold. 
 
        **cut_off** *(list of float, optional)* –  list of cut-off thresholds to form words for each node. Default is [0.01].
-       Only the labels (or ids) of nodes with transition probability (for "tm<wald-distance>") or with distance (for "ndd") 
+       Only the labels (or ids) of nodes with transition probability (for "tm<walk-distance>") or with distance (for "ndd") 
        above this threshold are used for building the word.
 
        **agg_by** *(list of int, optional)* – list of *aggregators* in words formed with "ndd" annotation. Default is [0].

@@ -36,7 +36,9 @@
 
     
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="netpro2vec.ProbDocExtractor" href="../ProbDocExtractor/index.html" />
+    <link rel="prev" title="netpro2vec.DistributionGenerator" href="../DistributionGenerator/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,12 +84,21 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../distrib.html">Distributions Generator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../extract.html">Document Extractor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../model.html">The Netpro2vec Model class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.Netpro2vec</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#netpro2vec.Netpro2vec.Netpro2vec">Netpro2vec</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../DistributionGenerator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.DistributionGenerator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProbDocExtractor/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.ProbDocExtractor</span></code></a></li>
 </ul>
 
             
@@ -134,6 +145,8 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a> &raquo;</li>
+        
       <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.Netpro2vec</span></code></li>
     
     
@@ -166,14 +179,14 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#netpro2vec.Netpro2vec.Netpro2vec" title="netpro2vec.Netpro2vec.Netpro2vec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Netpro2vec</span></code></a></p></td>
-<td><p>The class implementation of “NETPRO2VEC” model for whole-graph embedding.</p></td>
+<td><p>The class implementation of Netpro2vec model for whole-graph embedding.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt id="netpro2vec.Netpro2vec.Netpro2vec">
 <em class="property">class </em><code class="sig-prename descclassname">netpro2vec.Netpro2vec.</code><code class="sig-name descname">Netpro2vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'graphml'</span></em>, <em class="sig-param"><span class="n">dimensions</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">prob_type</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">['tm1']</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">[1]</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">[0.01]</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">[5]</span></em>, <em class="sig-param"><span class="n">min_count</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">down_sampling</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">0.025</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertex_attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec" title="Permalink to this definition">¶</a></dt>
-<dd><p>The class implementation of “NETPRO2VEC” model for whole-graph embedding.
+<dd><p>The class implementation of Netpro2vec model for whole-graph embedding.
 from the IEEE TCBB ‘20 paper “Netpro2vec: a Graph Embedding Framework for Biological Networks”. The procedure
 uses probability distribution representations of graphs and skip-gram learning modelor later.</p>
 <dl>
@@ -184,7 +197,7 @@ uses probability distribution representations of graphs and skip-gram learning m
 “tm&lt;walf-distance&gt;” means that a word for each node is formed  by concatenating node labels (or node ids) which are reacheable by the source node
 with a transition probability above a cut-off threshold.</p>
 <p><strong>cut_off</strong> <em>(list of float, optional)</em> –  list of cut-off thresholds to form words for each node. Default is [0.01].
-Only the labels (or ids) of nodes with transition probability (for “tm&lt;wald-distance&gt;”) or with distance (for “ndd”)
+Only the labels (or ids) of nodes with transition probability (for “tm&lt;walk-distance&gt;”) or with distance (for “ndd”)
 above this threshold are used for building the word.</p>
 <p><strong>agg_by</strong> <em>(list of int, optional)</em> – list of <em>aggregators</em> in words formed with “ndd” annotation. Default is [0].
 The number of bins used to build the Node Distance Distribution histogram is scaled down by
@@ -301,6 +314,15 @@ Netpro2vec object.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../ProbDocExtractor/index.html" class="btn btn-neutral float-right" title="netpro2vec.ProbDocExtractor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../DistributionGenerator/index.html" class="btn btn-neutral float-left" title="netpro2vec.DistributionGenerator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
