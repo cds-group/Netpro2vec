@@ -11,9 +11,10 @@ Netpro2vec's documentation!
    :caption: Contents:
 
    intro
-   distrib
-   extract
-   model
+   autoapi/netpro2vec/index
+   autoapi/netpro2vec/Netpro2vec/index
+   autoapi/netpro2vec/DistributionGenerator/index
+   autoapi/netpro2vec/ProbDocExtractor/index
 
 Indices and tables
 ==================
