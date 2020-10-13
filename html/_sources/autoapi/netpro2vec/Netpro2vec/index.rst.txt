@@ -16,7 +16,7 @@ Classes
 
 
 
-.. py:class:: Netpro2vec(format='graphml', dimensions=128, prob_type: List[str] = ['tm1'], extractor=[1], cut_off=[0.01], agg_by=[5], min_count=5, down_sampling=0.0001, workers=4, epochs=10, learning_rate=0.025, remove_inf=False, vertex_attribute=None, seed=0, verbose=False)
+.. py:class:: Netpro2vec(format='graphml', dimensions=128, prob_type: List[str] = ['tm1'], extractor=[1], cut_off=[0.01], agg_by=[5], min_count=5, down_sampling=0.0001, workers=4, epochs=10, learning_rate=0.025, remove_inf=False, vertex_attribute=None, seed=0, verbose=False, encodew=True)
 
    The class implementation of Netpro2vec model for whole-graph embedding.
    from the IEEE TCBB '20 paper "Netpro2vec: a Graph Embedding Framework for Biological Networks". The procedure
@@ -59,6 +59,8 @@ Classes
        **remove_inf** *(bool, optional)*: flag for removal of infinity value in histogram bins. Default is False.
 
        **vertex_labels** *(bool, optional)*: flag to set if graphs have vertex labels to be considered. Default is False
+
+       **encodew** *(bool, optional)*: flag to set if graph words are encoded into hash keys. Default is False
 
    .. method:: get_documents(self, graphs: List[ig.Graph])
 
