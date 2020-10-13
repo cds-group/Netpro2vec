@@ -67,13 +67,14 @@ class Netpro2vec:
 
         **vertex_labels** *(bool, optional)*: flag to set if graphs have vertex labels to be considered. Default is False
 
+        **encodew** *(bool, optional)*: flag to set if graph words are encoded into hash keys. Default is False
     """
 
 	def __init__(self, format="graphml", dimensions=128, prob_type: List[str]=["tm1"], 
 		         extractor=[1],cut_off=[0.01], agg_by=[5],
 		         min_count=5, down_sampling=0.0001,workers=4, epochs=10, learning_rate=0.025, 
 				 remove_inf=False, vertex_attribute=None, seed=0,
-				 verbose=False):
+				 verbose=False,encodew=True):
 		"""Creatinng the model."""
 		if len({len(i) for i in [prob_type,extractor,cut_off,agg_by]}) != 1:
 			raise Exception("Probability type list must be equal-sized wrt aggregator and cutoff arguments")
@@ -99,6 +100,7 @@ class Netpro2vec:
 		self.vertex_attribute_list = []
 		self.embedding = None
 		self.probmats = {}
+		self.encodew=encodew
 		self.min_count=min_count 
 		self.down_sampling=down_sampling
 		self.workers=workers 
@@ -123,7 +125,7 @@ class Netpro2vec:
 		self.__generate_probabilities(graphs)
 		if self.vertex_attribute is not None:
 			self.get_vertex_attributes(graphs)
-		self.__get_document_collections(tag_doc=False,encodew=False)
+		self.__get_document_collections(tag_doc=False,encodew=self.encodew)
 		return [ " ".join(doc) for doc in self.document_collections_list[-1]]
 
 	def fit(self, graphs: List[ig.Graph]):
@@ -140,7 +142,7 @@ class Netpro2vec:
 		self.__generate_probabilities(graphs)
 		if self.vertex_attribute is not None:
 			self.get_vertex_attributes(graphs)
-		self.__get_document_collections()
+		self.__get_document_collections(encodew=self.encodew)
 		self.__run_d2v(dimensions=self.dimensions,min_count=self.min_count,down_sampling=self.down_sampling,
 					workers=self.workers, epochs=self.epochs, learning_rate=self.learning_rate)
 		return self
@@ -269,6 +271,7 @@ class Netpro2vec:
 		if len(self.prob_type) > 1:
 			idx = len(self.prob_type) - 1
 		utils.vprint("Doc2Vec embedding in progress...", end='', verbose=self.verbose)
+		print(self.randomseed)
 		model = models.doc2vec.Doc2Vec(self.document_collections_list[idx],
 						vector_size=dimensions,
 						window=0,
