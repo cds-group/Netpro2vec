@@ -34,6 +34,8 @@ parser.add_argument('-S', "--savefile", metavar='<embed-filename>', type=str, he
 parser.add_argument('-p', "--label-position", dest='label_position', metavar='<label-position>', type=int, help='label position (default 2)', default=2, required=False)
 parser.add_argument('-d', "--dimensions", metavar='<dimensions>', type=int, help='feature dimension (default 512)', default=512, required=False)
 parser.add_argument('-x', "--extension", metavar="<extension>", type=str, default='graphml',choices=['graphml', 'edgelist'], help="file format (graphml, edgelist)) ", required=False)
+parser.add_argument('-E', "--encodewords", help="enable feature elimination (default enabled)", action='store_false', required=False)
+parser.add_argument('-R', "--seed", metavar="<seed>", type=int, default=42, help="random seed", required=False)
 
 
 def load_graphs(input_path, dataname, labels, fmt='graphml',verbose=False):
@@ -79,7 +81,9 @@ def main(args):
                            prob_type=args.distributions,
                            cut_off=args.cutoffs, agg_by=args.aggregators,
                            verbose=args.verbose,
-                           vertex_attribute=args.vertexattribute)
+                           vertex_attribute=args.vertexattribute,
+                           encodew=args.encodewords,
+                           seed=args.seed)
         model.fit(graphs)
         X = model.get_embedding()
         tm3 = time.time()
@@ -108,16 +112,16 @@ def main(args):
         if args.verbose: print("No. of features: " + str(X.shape[1]))
       tm6 = time.time()
       if args.select:
-          clf = SVC(kernel="linear")
+          clf = SVC(kernel="linear", random_state=1)
           sfm = RFECV(estimator=clf, step=10, min_features_to_select=50,
-                      cv=StratifiedKFold(random_state=0,n_splits=5),
+                      cv=StratifiedKFold(random_state=1,n_splits=5),
                       scoring='accuracy')
           sfm = sfm.fit(X, y)
           X = sfm.transform(X)
           if args.verbose: print("Reduced dataset " + str(X.shape[1]))
       tm7 = time.time()
       if args.validate:
-          clf = SVC(kernel='linear')
+          clf = SVC(kernel='linear', random_state=1)
           scoring = ['accuracy', 'precision_macro', "recall_macro", "f1_macro"]
           scores_cv = cross_validate(clf, X, y, scoring=scoring, cv=RepeatedStratifiedKFold(n_splits=10 , n_repeats=10, random_state=465), return_train_score=False)
           print('Acc Avg+Std:\t', (scores_cv['test_accuracy'] * 100).mean(), (scores_cv['test_accuracy'] * 100).std())
