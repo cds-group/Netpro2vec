@@ -78,11 +78,11 @@ class Netpro2vec:
 		if len({len(i) for i in [prob_type,extractor,cut_off,agg_by]}) != 1:
 			raise Exception("Probability type list must be equal-sized wrt aggregator and cutoff arguments")
 		for i,a in enumerate(agg_by):
-			if prob_type[i] != "ndd" and a != 0:	
-				raise Exception("Aggregators values for tm must be 0 (disabled)")
-			else:
-				if a < 1 or a > 10:
-					raise Exception("Aggregators values for ndd must be in the range [1,10]")
+			if prob_type[i] == "ndd" and (int(a) < 1 or int(a) > 10):	
+				raise Exception("Aggregators values for %s must be in the range [1,10]"%prob_type[i])
+			if prob_type[i] != "ndd" and int(a) != 0:
+				print(a)
+				raise Exception("Aggregators values for %s must be 0 (disabled)"%prob_type[i])
 		if any(e != 1 and e != 6 for (e) in extractor):	
 			raise Exception("Supported extractor modes are 1 (single cut-off) and 6 (multiple cut-offs)")
 		if dimensions < 0: 
@@ -123,7 +123,7 @@ class Netpro2vec:
 		self.__generate_probabilities(graphs)
 		if self.vertex_attribute is not None:
 			self.get_vertex_attributes(graphs)
-		self.__get_document_collections(tag_doc=False)
+		self.__get_document_collections(tag_doc=False,encodew=False)
 		return [ " ".join(doc) for doc in self.document_collections_list[-1]]
 
 	def fit(self, graphs: List[ig.Graph]):
