@@ -60,7 +60,7 @@ Classes
 
        **vertex_labels** *(bool, optional)*: flag to set if graphs have vertex labels to be considered. Default is False
 
-       **encodew** *(bool, optional)*: flag to set if graph words are encoded into hash keys. Default is False
+       **encodew** *(bool, optional)*: flag to unset if graph words are encoded into hash keys. Default is True
 
    .. method:: get_documents(self, graphs: List[ig.Graph])
 
