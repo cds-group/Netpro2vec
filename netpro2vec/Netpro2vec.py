@@ -67,7 +67,7 @@ class Netpro2vec:
 
         **vertex_labels** *(bool, optional)*: flag to set if graphs have vertex labels to be considered. Default is False
 
-        **encodew** *(bool, optional)*: flag to set if graph words are encoded into hash keys. Default is False
+        **encodew** *(bool, optional)*: flag to unset if graph words are encoded into hash keys. Default is True
     """
 
 	def __init__(self, format="graphml", dimensions=128, prob_type: List[str]=["tm1"], 
