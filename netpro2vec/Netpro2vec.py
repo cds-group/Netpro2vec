@@ -271,7 +271,6 @@ class Netpro2vec:
 		if len(self.prob_type) > 1:
 			idx = len(self.prob_type) - 1
 		utils.vprint("Doc2Vec embedding in progress...", end='', verbose=self.verbose)
-		print(self.randomseed)
 		model = models.doc2vec.Doc2Vec(self.document_collections_list[idx],
 						vector_size=dimensions,
 						window=0,
