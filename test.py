@@ -19,8 +19,8 @@ from sklearn.metrics import confusion_matrix
 from sklearn.svm import SVC
 
 parser = argparse.ArgumentParser(description='Tesing Netpro2vec')
-parser.add_argument('-i', "--inputpath", metavar='<inputpath>', type=str, help='input directory (default .)', required=False)
-parser.add_argument('-l', "--labelfile", metavar='<labelfile>', type=str, help='label file (path))', required=False)
+parser.add_argument('-i', "--inputpath", metavar='<inputpath>', type=str, help='input directory (default .)', required=True)
+parser.add_argument('-l', "--labelfile", metavar='<labelfile>', type=str, help='label file (path))', required=True)
 parser.add_argument('-n', "--distributions", metavar='<distributions>', nargs='*',  type=str, default=['tm1'], help='list of distribution types (default: %(default)s)') 
 parser.add_argument('-c', "--cutoffs", metavar='<cutoffs>', nargs='*',  type=float, default=[0.1], help='list of cutoffs (default: %(default)s)') 
 parser.add_argument('-e', "--extractors", metavar='<extractors>', nargs='*',  type=int, default=[1], help='list of extractor indices (default: %(default)s)') 
@@ -33,6 +33,7 @@ parser.add_argument('-L', "--loadfile", metavar='<embed-filename>', type=str, he
 parser.add_argument('-S', "--savefile", metavar='<embed-filename>', type=str, help='saving embedding  file (default None))', required=False)
 parser.add_argument('-p', "--label-position", dest='label_position', metavar='<label-position>', type=int, help='label position (default 2)', default=2, required=False)
 parser.add_argument('-d', "--dimensions", metavar='<dimensions>', type=int, help='feature dimension (default 512)', default=512, required=False)
+parser.add_argument('-w', "--workers", metavar='<workers>', type=int, help='number of workers (default 4)', default=4, required=False)
 parser.add_argument('-x', "--extension", metavar="<extension>", type=str, default='graphml',choices=['graphml', 'edgelist'], help="file format (graphml, edgelist)) ", required=False)
 parser.add_argument('-E', "--encodewords", help="enable feature elimination (default enabled)", action='store_false', required=False)
 parser.add_argument('-R', "--seed", metavar="<seed>", type=int, default=42, help="random seed", required=False)
@@ -58,16 +59,14 @@ def main(args):
       tm = time.time()
       # parse arguments
       args = parser.parse_args()
-      if os.path.isdir(args.inputpath):
-        dataname = args.inputpath.split("/")[-2] 
-      else:
-        dataname = args.inputpath
+      if not os.path.isdir(args.inputpath):
+        raise Exception("--inputpath must be a valid directory")
+      if not os.path.isfile(args.labelfile):    
+        raise Exception("--labelfile must be a valid label file")
+      dataname = args.inputpath.split("/")[-2]
       if not args.loadfile:    # compute embeddings
         # read class labels
         labels= {}
-        if not args.labelfile or not args.inputpath:
-            raise Exception("Both --inputpath and --labelfile must be "
-                            "specified!")
         labelfile = open(args.labelfile)
         for row in list(csv.reader(labelfile, delimiter='\t')):
             labels[row[0]] = row[args.label_position]
@@ -83,7 +82,8 @@ def main(args):
                            verbose=args.verbose,
                            vertex_attribute=args.vertexattribute,
                            encodew=args.encodewords,
-                           seed=args.seed)
+                           seed=args.seed,
+                           workers=args.workers)
         model.fit(graphs)
         X = model.get_embedding()
         tm3 = time.time()
@@ -112,18 +112,18 @@ def main(args):
         if args.verbose: print("No. of features: " + str(X.shape[1]))
       tm6 = time.time()
       if args.select:
-          clf = SVC(kernel="linear", random_state=1)
+          clf = SVC(kernel="linear")
           sfm = RFECV(estimator=clf, step=10, min_features_to_select=50,
-                      cv=StratifiedKFold(random_state=1,n_splits=5),
+                      cv=StratifiedKFold(random_state=args.seed,n_splits=5),
                       scoring='accuracy')
           sfm = sfm.fit(X, y)
           X = sfm.transform(X)
           if args.verbose: print("Reduced dataset " + str(X.shape[1]))
       tm7 = time.time()
       if args.validate:
-          clf = SVC(kernel='linear', random_state=1)
+          clf = SVC(kernel='linear')
           scoring = ['accuracy', 'precision_macro', "recall_macro", "f1_macro"]
-          scores_cv = cross_validate(clf, X, y, scoring=scoring, cv=RepeatedStratifiedKFold(n_splits=10 , n_repeats=10, random_state=465), return_train_score=False)
+          scores_cv = cross_validate(clf, X, y, scoring=scoring, cv=RepeatedStratifiedKFold(n_splits=10 , n_repeats=10, random_state=args.seed), return_train_score=False)
           print('Acc Avg+Std:\t', (scores_cv['test_accuracy'] * 100).mean(), (scores_cv['test_accuracy'] * 100).std())
           print('Prec Avg+Std:\t', (scores_cv['test_precision_macro'] * 100).mean(),(scores_cv['test_precision_macro'] * 100).std())
           print('Recall Avg+Std:\t', (scores_cv['test_recall_macro'] * 100).mean(), (scores_cv['test_recall_macro'] * 100).std())
