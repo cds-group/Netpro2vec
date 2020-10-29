@@ -21,15 +21,15 @@ class WeisfeilerLehman:
         self.annotation = annotation
         self.graph = graph
         self.vertex_attribute = vertex_attribute
-        self.vertex_attribute_list = []
+        self.vertex_attribute_list = self.__get_vertex_attributes()
         self._set_features()
         self._do_recursions()
 
-    def __get_vertex_attributes(self, graphs):
+    def __get_vertex_attributes(self):
         if self.vertex_attribute is None:     # if no attribute is specifyed, use the index as vertex label 
-           self.vertex_attribute_list = [v.index for v in ig.VertexSeq(self.graph)]
-        elif self.vertex_attribute in graphs[0].vs.attributes():
-           self.vertex_attribute_list = [v[self.vertex_attribute] for v in ig.VertexSeq(self.graph)]
+           return [v.index for v in ig.VertexSeq(self.graph)]
+        elif self.vertex_attribute in self.graph.vs.attributes():
+           return [v[self.vertex_attribute] for v in ig.VertexSeq(self.graph)]
         else:
            raise Exception('The graph does not have the provided vertex ')
 
@@ -47,16 +47,17 @@ class WeisfeilerLehman:
             * **new_features** *(dict of strings)* - The hash table with extracted WL features.
         """
         new_features = {}
-        for node in self.graph.nodes():
+        for node in ig.VertexSeq(self.graph):
             nebs = self.graph.neighbors(node)
-            degs = [neb["feature"] for neb in nebs]
+            degs = [neb["feature"] for neb in self.graph.vs[nebs]]
             features = [str(node["feature"])]+sorted([str(deg) for deg in degs])
             features = "_".join(features)
             hash_object = hashlib.md5(features.encode())
             hashing = hash_object.hexdigest()
             node["feature"] = hashing
-            new_features[node] = hashing
-        self.extracted_features = {k: self.extracted_features[k] + [v] for k, v in new_features.items()}
+            new_features[node.index] = hashing
+        #self.extracted_features = {k: self.extracted_features[k] + [v] for k,v in new_features.items()}
+        self.extracted_features = [ (self.vertex_attribute_list[k], v) for k,v in new_features.items() ]
         return new_features
 
     def _do_recursions(self):
@@ -77,5 +78,5 @@ class WeisfeilerLehman:
         """
         Return the graph level features.
         """
-        return [feature for node, features in self.extracted_features.items() for feature in features]
+        return [feature for node,features in self.extracted_features for feature in features]
 
