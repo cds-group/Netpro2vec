@@ -101,6 +101,7 @@ class DistributionGenerator:
 		self.distrib_list.append(distrib_mat)
 
 	def __run_distib_comp(self):
+		print(self.distrib_type)
 		if self.distrib_type == "ndd":
 			utils.vprint("Calculating Node Distance Distribution...",
 						 verbose=self.verbose)
