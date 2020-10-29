@@ -31,8 +31,10 @@ class Netwld2v:
                  learning_rate: float=0.025, min_count: int=5, seed: int=42, verbose=False):
 
         self.wl_iterations = wl_iterations
+        assert self.wl_iterations > 0, "WL recursions must be > 0"
         self.verbose = verbose
         self.dimensions = dimensions
+        assert self.dimensions > 0, "WL recursions must be > 0"
         self.vertex_attribute = vertex_attribute
         self.annotation = annotation
         self.workers = workers

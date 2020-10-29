@@ -18,6 +18,7 @@ class WeisfeilerLehman:
         Initialization method which also executes feature extraction.
         """
         self.wl_iterations = wl_iterations
+        assert self.wl_iterations > 0, "WL recursions must be > 0"
         self.annotation = annotation
         self.graph = graph
         self.vertex_attribute = vertex_attribute
@@ -64,7 +65,6 @@ class WeisfeilerLehman:
         """
         The method does a series of WL recursions.
         """
-        assert self.wl_iterations > 0, "WL recursions must be > 0"
         for _ in range(self.wl_iterations):
             self.features = self._do_a_recursion()
 
