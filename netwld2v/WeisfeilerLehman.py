@@ -3,6 +3,8 @@ import networkx as nx
 import igraph as ig
 import numpy as np
 from typing import List, Dict
+from tqdm import tqdm
+import netpro2vec.utils as utils
 
 class WeisfeilerLehman:
     """
@@ -13,10 +15,12 @@ class WeisfeilerLehman:
         wl_iterations (int): Number of WL iterations.
         attributed (bool): Presence of attributes.
     """
-    def __init__(self, graph: ig.Graph, wl_iterations: int, vertex_attribute: None, annotation: str):
+    def __init__(self, graph: ig.Graph, wl_iterations: int, vertex_attribute: None, annotation: str, verbose: bool=False):
         """
         Initialization method which also executes feature extraction.
         """
+        self.verbose = verbose
+        self.tqdm = tqdm if self.verbose else utils.nop
         self.wl_iterations = wl_iterations
         assert self.wl_iterations > 0, "WL recursions must be > 0"
         self.annotation = annotation
@@ -39,6 +43,7 @@ class WeisfeilerLehman:
         Creating the features.
         """
         self.extracted_features = [ (self.vertex_attribute_list[v.index], v["feature"]) for v in ig.VertexSeq(self.graph) ]
+        #print("INIT", self.extracted_features)
 
     def _do_a_recursion(self):
         """
@@ -56,9 +61,11 @@ class WeisfeilerLehman:
             hash_object = hashlib.md5(features.encode())
             hashing = hash_object.hexdigest()
             node["feature"] = hashing
+            #node["feature"] = features
             new_features[node.index] = hashing
         #self.extracted_features = {k: self.extracted_features[k] + [v] for k,v in new_features.items()}
         self.extracted_features = [ (self.vertex_attribute_list[k], v) for k,v in new_features.items() ]
+        #print(self.extracted_features)
         return new_features
 
     def _do_recursions(self):
