@@ -55,6 +55,7 @@ class WeisfeilerLehman(object):
         """
         new_features = {}
         for node in ig.VertexSeq(self.graph):
+            print(node)
             nebs = self.graph.neighbors(node, mode=self.mode)
             degs = [neb["feature"] for neb in self.graph.vs[nebs]]
             print(nebs)
