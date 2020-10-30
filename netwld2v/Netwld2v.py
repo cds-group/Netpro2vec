@@ -43,6 +43,7 @@ class Netwld2v:
         self.workers = workers
         self.down_sampling = down_sampling
         self.epochs = epochs
+        self.matcher = re.compile('^tm[0-9]+')
         self.learning_rate = learning_rate
         self.min_count = min_count
         self.seed = seed
@@ -54,12 +55,22 @@ class Netwld2v:
            node_indices = sorted([node.index for node in ig.VertexSeq(graph)])
            assert numeric_indices == node_indices, "The node indexing is wrong."
 
+    def __init_feature(self, graphs):
+        if self.annotation == "ndd":
+            for gidx,graph in enumerate(graphs):
+                for v in ig.VertexSeq(graph):
+                    v["feature"]= np.argmax(self.probmats[gidx][v.index])+1
+        elif self.matcher.match(self.annotation):   # match any 'tm<int>'
+            for gidx,graph in enumerate(graphs):
+                for v in ig.VertexSeq(graph):
+                    v["feature"]= np.argmax(self.probmats[gidx][v.index],axis=0)+1
+        else:
+            Exception("Wrong distribution selection %r"%self.distrib_type)
+
     def __set_features(self, graphs, annotation):
         """ compute probabilities and initilize feature of graph nodes"""
         self.probmats = DistributionGenerator(self.annotation[0], graphs, verbose=self.verbose).get_distributions()
-        for gidx,graph in enumerate(graphs):
-            for v in ig.VertexSeq(graph):
-                v["feature"]= np.argmax(self.probmats[gidx][v.index])   
+        sel.__init_feature(graphs)  
         
     def fit(self, graphs: List[ig.Graph]):
         """
