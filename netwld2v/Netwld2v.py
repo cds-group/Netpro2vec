@@ -4,6 +4,8 @@ from typing import List
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from netwld2v.WeisfeilerLehman import WeisfeilerLehman
 from netpro2vec.DistributionGenerator import DistributionGenerator
+import netpro2vec.utils as utils
+from tqdm import tqdm
 
 class Netwld2v:
     r"""An implementation of whiolegraph emebdding based on doc2vec and WL algorithm
@@ -26,13 +28,14 @@ class Netwld2v:
         seed (int): Random seed for the model. Default is 42.
         annotation (str): type of node (annotation) label used to build documents (default is node degree)
     """
-    def __init__(self, wl_iterations: int=2, vertex_attribute=None, dimensions: int=128, annotation: str="degree",
+    def __init__(self, wl_iterations: int=5, vertex_attribute=None, dimensions: int=128, annotation: str="degree",
                  workers: int=4, down_sampling: float=0.0001, epochs: int=10, 
                  learning_rate: float=0.025, min_count: int=5, seed: int=42, verbose=False):
 
         self.wl_iterations = wl_iterations
         assert self.wl_iterations > 0, "WL recursions must be > 0"
         self.verbose = verbose
+        self.tqdm = tqdm if self.verbose else utils.nop
         self.dimensions = dimensions
         assert self.dimensions > 0, "WL recursions must be > 0"
         self.vertex_attribute = vertex_attribute
@@ -67,9 +70,12 @@ class Netwld2v:
         """
         self.__check_graphs(graphs)    # check graphs conditions
         self.__set_features(graphs, self.annotation)
-        documents = [WeisfeilerLehman(graph, self.wl_iterations, self.vertex_attribute, self.annotation) for graph in graphs]
-        documents = [TaggedDocument(words=doc.get_graph_features(), tags=[str(i)]) for i, doc in enumerate(documents)]
+        utils.vprint("WL algorithm (depth %d)..."%self.wl_iterations, end='\n', verbose=self.verbose)
+        documents = [WeisfeilerLehman(graph, self.wl_iterations, self.vertex_attribute, self.annotation, self.verbose) for graph in self.tqdm(graphs)]
+        utils.vprint("Building vocabulary...", end='\n', verbose=self.verbose)
+        documents = [TaggedDocument(words=doc.get_graph_features(), tags=[str(i)]) for i, doc in enumerate(self.tqdm(documents))]
 
+        utils.vprint("Building model...", end='\n', verbose=self.verbose)
         model = Doc2Vec(documents,
                         vector_size=self.dimensions,
                         window=0,
