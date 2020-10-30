@@ -6,7 +6,7 @@ from typing import List, Dict
 from tqdm import tqdm
 import netpro2vec.utils as utils
 
-class WeisfeilerLehman:
+class WeisfeilerLehman(object):
     """
     Weisfeiler-Lehman feature extractor class.
 
@@ -57,6 +57,8 @@ class WeisfeilerLehman:
         for node in ig.VertexSeq(self.graph):
             nebs = self.graph.neighbors(node, mode=self.mode)
             degs = [neb["feature"] for neb in self.graph.vs[nebs]]
+            print(nebs)
+            print(degs)
             features = [str(node["feature"])]+sorted([str(deg) for deg in degs])
             features = "_".join(features)
             hash_object = hashlib.md5(features.encode())
@@ -87,4 +89,6 @@ class WeisfeilerLehman:
         Return the graph level features.
         """
         return [feature for node,features in self.extracted_features for feature in features]
+
+
 
