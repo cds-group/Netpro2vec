@@ -25,6 +25,7 @@ class WeisfeilerLehman:
         assert self.wl_iterations > 0, "WL recursions must be > 0"
         self.annotation = annotation
         self.graph = graph
+        self.mode = "OUT" if graph.is_directed() else 'ALL' 
         self.vertex_attribute = vertex_attribute
         self.vertex_attribute_list = self.__get_vertex_attributes()
         self._set_features()
@@ -54,7 +55,7 @@ class WeisfeilerLehman:
         """
         new_features = {}
         for node in ig.VertexSeq(self.graph):
-            nebs = self.graph.neighbors(node)
+            nebs = self.graph.neighbors(node, mode=self.mode)
             degs = [neb["feature"] for neb in self.graph.vs[nebs]]
             features = [str(node["feature"])]+sorted([str(deg) for deg in degs])
             features = "_".join(features)
