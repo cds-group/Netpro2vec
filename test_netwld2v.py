@@ -21,16 +21,19 @@ from sklearn.svm import SVC
 parser = argparse.ArgumentParser(description='Tesing Netpro2vec')
 parser.add_argument('-i', "--inputpath", metavar='<inputpath>', type=str, help='input directory (default .)', required=True)
 parser.add_argument('-l', "--labelfile", metavar='<labelfile>', type=str, help='label file (path))', required=True)
-parser.add_argument('-n', "--distributions", metavar='<distributions>', nargs='*',  type=str, default=['tm1'], help='list of distribution types (default: %(default)s)') 
+#parser.add_argument('-n', "--distributions", metavar='<distributions>', nargs='*',  type=str, default=['tm1'], help='list of distribution types (default: %(default)s)') 
+parser.add_argument('-n', "--distributions", metavar='<distributions>', type=str, default='tm1', help='distribution type (default: %(default))') 
 parser.add_argument('-A', "--vertexattribute", metavar='<vertex-attribute>', type=str, help='vertex attribute', required=False)
 parser.add_argument('-X', "--select", help="enable feature elimination (default disabled)", action='store_true')
 parser.add_argument('-V', "--validate", help="enable cross-validation (default disabled)", action='store_true')
 parser.add_argument('-v', "--verbose", help="enable verobose printing (default disabled)", action='store_true')
+parser.add_argument('-o', "--outfile", metavar='<document-filename>', type=str, help='document output file (default None))', default=None, required=False)
 parser.add_argument('-L', "--loadfile", metavar='<embed-filename>', type=str, help='loading embedding file (default None))', required=False)
 parser.add_argument('-S', "--savefile", metavar='<embed-filename>', type=str, help='saving embedding  file (default None))', required=False)
 parser.add_argument('-p', "--label-position", dest='label_position', metavar='<label-position>', type=int, help='label position (default 2)', default=2, required=False)
 parser.add_argument('-d', "--dimensions", metavar='<dimensions>', type=int, help='feature dimension (default 512)', default=512, required=False)
 parser.add_argument('-w', "--workers", metavar='<workers>', type=int, help='number of workers (default 4)', default=4, required=False)
+parser.add_argument('-W', "--recursions", metavar='<recursions>', type=int, help='number of recursions (default 2)', default=2, required=False)
 parser.add_argument('-x', "--extension", metavar="<extension>", type=str, default='graphml',choices=['graphml', 'edgelist'], help="file format (graphml, edgelist)) ", required=False)
 parser.add_argument('-R', "--seed", metavar="<seed>", type=int, default=42, help="random seed", required=False)
 
@@ -72,12 +75,14 @@ def main(args):
         tm1 = time.time()
         if args.verbose: print("Embeddings...")
         tm2 = time.time()
-        model = Netwld2v(dimensions=args.dimensions, 
+        print(args.distributions)
+        model = Netwld2v(dimensions=args.dimensions,wl_iterations=args.recursions, 
                            annotation=args.distributions,
                            verbose=args.verbose,
                            vertex_attribute=args.vertexattribute,
                            seed=args.seed,
-                           workers=args.workers)
+                           workers=args.workers,
+                           outdoc=args.outfile)
         model.fit(graphs)
         X = model.get_embedding()
         tm3 = time.time()
