@@ -75,7 +75,6 @@ def main(args):
         tm1 = time.time()
         if args.verbose: print("Embeddings...")
         tm2 = time.time()
-        print(args.distributions)
         model = Netwld2v(dimensions=args.dimensions,wl_iterations=args.recursions, 
                            annotation=args.distributions,
                            verbose=args.verbose,
