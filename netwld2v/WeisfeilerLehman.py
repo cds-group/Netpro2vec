@@ -55,11 +55,8 @@ class WeisfeilerLehman(object):
         """
         new_features = {}
         for node in ig.VertexSeq(self.graph):
-            print(node)
             nebs = self.graph.neighbors(node, mode=self.mode)
             degs = [neb["feature"] for neb in self.graph.vs[nebs]]
-            print(nebs)
-            print(degs)
             features = [str(node["feature"])]+sorted([str(deg) for deg in degs])
             features = "_".join(features)
             hash_object = hashlib.md5(features.encode())
@@ -89,7 +86,12 @@ class WeisfeilerLehman(object):
         """
         Return the graph level features.
         """
-        return [feature for node,features in self.extracted_features for feature in features]
+        #return [feature for node,features in self.extracted_features for feature in features]
+        return [feature for node,feature in self.extracted_features]
 
-
+    def get_graph_sentence(self) -> List[str]:
+        """
+        Return the graph level features.
+        """
+        return ' '.join([features for node,features in self.extracted_features])
 
