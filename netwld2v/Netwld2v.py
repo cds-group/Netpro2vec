@@ -5,6 +5,7 @@ from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from netwld2v.WeisfeilerLehman import WeisfeilerLehman
 from netpro2vec.DistributionGenerator import DistributionGenerator
 import netpro2vec.utils as utils
+import re
 from tqdm import tqdm
 
 class Netwld2v:
@@ -30,7 +31,7 @@ class Netwld2v:
     """
     def __init__(self, wl_iterations: int=5, vertex_attribute=None, dimensions: int=128, annotation: str="degree",
                  workers: int=4, down_sampling: float=0.0001, epochs: int=10, 
-                 learning_rate: float=0.025, min_count: int=5, seed: int=42, verbose=False):
+                 learning_rate: float=0.025, min_count: int=5, seed: int=42, verbose=False, outdoc=None):
 
         self.wl_iterations = wl_iterations
         assert self.wl_iterations > 0, "WL recursions must be > 0"
@@ -41,6 +42,7 @@ class Netwld2v:
         self.vertex_attribute = vertex_attribute
         self.annotation = annotation
         self.workers = workers
+        self.outfile = outdoc
         self.down_sampling = down_sampling
         self.epochs = epochs
         self.matcher = re.compile('^tm[0-9]+')
@@ -57,7 +59,7 @@ class Netwld2v:
 
     def __set_features(self, graphs, annotation):
         """ compute probabilities and initilize feature of graph nodes"""
-        self.probmats = DistributionGenerator(self.annotation[0], graphs, verbose=self.verbose).get_distributions()
+        self.probmats = DistributionGenerator(self.annotation, graphs, verbose=self.verbose).get_distributions()
         if self.annotation == "ndd":
             for gidx,graph in enumerate(graphs):
                 for v in ig.VertexSeq(graph):
@@ -80,6 +82,10 @@ class Netwld2v:
         self.__set_features(graphs, self.annotation)
         utils.vprint("WL algorithm (depth %d)..."%self.wl_iterations, end='\n', verbose=self.verbose)
         documents = [WeisfeilerLehman(graph, self.wl_iterations, self.vertex_attribute, self.annotation, self.verbose) for graph in self.tqdm(graphs)]
+        if self.outfile and utils.check_file_writable(self.outfile):
+             utils.vprint("Saving corpus in file %s..."%self.outfile, end='\n', verbose=self.verbose)
+             with open(self.outfile, "w") as fout:
+                 fout.writelines(["%s\n" % doc.get_graph_sentence() for doc in documents])
         utils.vprint("Building vocabulary...", end='\n', verbose=self.verbose)
         documents = [TaggedDocument(words=doc.get_graph_features(), tags=[str(i)]) for i, doc in enumerate(self.tqdm(documents))]
 
