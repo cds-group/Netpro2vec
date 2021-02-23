@@ -112,4 +112,4 @@ array([[ 2.3669314e-03, -1.6807126e-03,  1.3935004e-04, ...,
          1.7665974e-03,  8.7682210e-04,  1.6081571e-03]], dtype=float32)
 ```
 
-For using Netpro2vec in you applications, see the API documentation included in folder <code>html</code>.
+For using Netpro2vec in you application, see the API documentation included in folder <code>html</code>.
