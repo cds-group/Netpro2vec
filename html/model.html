@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>The Netpro2vec Model class &mdash; Netpro2vec 0.1.1 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,7 +33,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -50,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Netpro2vec
+            <a href="index.html" class="icon icon-home"> Netpro2vec
           
 
           
@@ -128,6 +130,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -139,7 +143,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/model.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -155,60 +159,6 @@
             
   <div class="section" id="the-netpro2vec-model-class">
 <h1>The Netpro2vec Model class<a class="headerlink" href="#the-netpro2vec-model-class" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt>
-<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.Netpro2vec.</code><code class="sig-name descname">Netpro2vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'graphml'</span></em>, <em class="sig-param"><span class="n">dimensions</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">prob_type</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">['tm1']</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">[1]</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">[0.01]</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">[5]</span></em>, <em class="sig-param"><span class="n">min_count</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">down_sampling</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">0.025</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertex_labels</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span></dt>
-<dd><p>The class implementation of “NETPRO2VEC” model for whole-graph embedding.
-from the IEEE TCBB ‘20 paper “Netpro2vec: a Graph Embedding Framework for Biological Networks”. The procedure
-uses probability distribution representations of graphs and skip-gram learning modelor later.</p>
-<dl>
-<dt>Args:</dt><dd><p><strong>format</strong> <em>(str, optional)</em> -  graph format. Dfault is “graphml”</p>
-<p><strong>dimensions</strong> <em>(int, optional)</em> – number of features. Default is 128.</p>
-<p><strong>rob_type</strong> <em>(list of str, optional)</em> –  list of probability types. Default is [“tm1”] (allowed values: “ndd”, “tm&lt;int&gt;”).</p>
-<p><strong>cut_off</strong> <em>(list of float, optional)</em> –  list of cut-off thresholds to form words. Default is [0.01].</p>
-<p><strong>agg_by</strong> <em>(list of int, optional</em> – list of numbers of aggregators in words. Default is [0].</p>
-<p><strong>walk</strong> <em>(int, optional)</em> –  number of random walks in TM calculation. Default is 1.</p>
-<p><strong>min_count</strong> <em>(int, optional)</em> – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5</p>
-<p><strong>workers</strong> <em>(int, optional)</em> – use these many worker threads to train the model (Doc2Vec). Default is 4</p>
-<p><strong>epochs</strong> <em>(int, optional)</em> – Number of iterations (epochs) over the corpus (Doc2Vec). Default is 10</p>
-<p><strong>remove_inf</strong> <em>(bool, optional)</em>: flag for removal of infinity value in histogram bins. Default is False.</p>
-<p><strong>vertex_labels</strong> <em>(bool, optional)</em>: flag to set if graphs have vertex labels to be considered. Default is False</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt>
-<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graphs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>igraph.Graph<span class="p">]</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Fitting method of Netpro2vec model.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p><strong>graphs</strong> <em>(List igraph.Graph objs)</em> - list of graphs in igraph format types.</p>
-</dd>
-<dt>Return:</dt><dd><p>The trained <strong>Netpro2vec</strong> model.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt>
-<code class="sig-name descname">get_embedding</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>Access embedding of Netpro2vec model.</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>The produced embedding in numpy array format (None if the mode was not trained).</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt>
-<code class="sig-name descname">get_memberships</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>Access last document list used for training the Netpro2vec model.</p>
-<dl class="simple">
-<dt>Return:</dt><dd><p>The document list used in last model training ([] if the model was never trained).</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 
 
@@ -216,28 +166,25 @@ uses probability distribution representations of graphs and skip-gram learning m
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, Ichcha Manipur and Maurizio Giordano
+        &#169; Copyright 2020, Ichcha Manipur and Maurizio Giordano.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

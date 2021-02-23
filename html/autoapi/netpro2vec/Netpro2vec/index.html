@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>netpro2vec.Netpro2vec &mdash; Netpro2vec 0.1.1 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,7 +33,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -52,7 +54,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Netpro2vec
+            <a href="../../../index.html" class="icon icon-home"> Netpro2vec
           
 
           
@@ -94,6 +96,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ProbDocExtractor/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.ProbDocExtractor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../showvocab/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.showvocab</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.utils</span></code></a></li>
 </ul>
 </li>
@@ -151,6 +154,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -164,7 +169,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../../_sources/autoapi/netpro2vec/Netpro2vec/index.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -197,7 +202,7 @@
 </table>
 <dl class="py class">
 <dt id="netpro2vec.Netpro2vec.Netpro2vec">
-<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.Netpro2vec.</code><code class="sig-name descname">Netpro2vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'graphml'</span></em>, <em class="sig-param"><span class="n">dimensions</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">prob_type</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">['tm1']</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">[1]</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">[0.01]</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">[5]</span></em>, <em class="sig-param"><span class="n">min_count</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">down_sampling</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">0.025</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertex_attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">encodew</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.Netpro2vec.</code><code class="sig-name descname">Netpro2vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'graphml'</span></em>, <em class="sig-param"><span class="n">dimensions</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">prob_type</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">['tm1']</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">[1]</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">[0.01]</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">[0]</span></em>, <em class="sig-param"><span class="n">min_count</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">down_sampling</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">0.025</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertex_attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">encodew</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">load_probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_vocab</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">load_vocab</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec" title="Permalink to this definition">¶</a></dt>
 <dd><p>The class implementation of Netpro2vec model for whole-graph embedding.
 from the IEEE TCBB ‘20 paper “Netpro2vec: a Graph Embedding Framework for Biological Networks”. The procedure
 uses probability distribution representations of graphs and skip-gram learning modelor later.</p>
@@ -214,14 +219,13 @@ above this threshold are used for building the word.</p>
 <p><strong>agg_by</strong> <em>(list of int, optional)</em> – list of <em>aggregators</em> in words formed with “ndd” annotation. Default is [0].
 The number of bins used to build the Node Distance Distribution histogram is scaled down by
 the “agg_by” value. A unity value means that the number of bins is set to the maximum diameter.
-A value <em>n</em> means that the number of bins is equalt to <em>max-diameter/n</em>.
+A value <em>n</em> means that the number of bins is equal to <em>max-diameter/n</em>.
 A zero value means that this paramter does not apply to the annotation (i.e. “tm&lt;walk-distance&gt;”).</p>
 <p><strong>extractor</strong> <em>(list of int, optional)</em> – list of <em>extractor modes</em> in builidng words, one modality for each specified annotation.
 Default is [0]. Currently, only extractor 1 and 6 are supported.
 With respect to the corresponding annotation in the <strong>prob_type</strong> list:
 - extractor 1 returns words only from a single cut off.
-- extractor 6 returns multiple words of different lengths from different
-probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
+- extractor 6 returns multiple words of different lengths from different probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
 Extractor modalities 2-5 are not supported since they are under cunstruction.</p>
 <p><strong>min_count</strong> <em>(int, optional)</em> – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5</p>
 <p><strong>workers</strong> <em>(int, optional)</em> – use these many worker threads to train the model (Doc2Vec). Default is 4</p>
@@ -229,6 +233,10 @@ Extractor modalities 2-5 are not supported since they are under cunstruction.</p
 <p><strong>remove_inf</strong> <em>(bool, optional)</em>: flag for removal of infinity value in histogram bins. Default is False.</p>
 <p><strong>vertex_labels</strong> <em>(bool, optional)</em>: flag to set if graphs have vertex labels to be considered. Default is False</p>
 <p><strong>encodew</strong> <em>(bool, optional)</em>: flag to unset if graph words are encoded into hash keys. Default is True</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>save_probs <em>(bool, optional)</em>: flag to enable probability distribution saving. Default is False</p>
+<p><a href="#id3"><span class="problematic" id="id4">**</span></a>load_probs <em>(bool, optional)</em>: flag to enable probability distribution restoring. Default is False</p>
+<p><a href="#id5"><span class="problematic" id="id6">**</span></a>save_vocab <em>(bool, optional)</em>: flag to enable vocabulary saving. Default is False</p>
+<p><a href="#id7"><span class="problematic" id="id8">**</span></a>load_vocab <em>(bool, optional)</em>: flag to enable vocabulary restoring. Default is False</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -327,37 +335,29 @@ Netpro2vec object.</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../ProbDocExtractor/index.html" class="btn btn-neutral float-right" title="netpro2vec.ProbDocExtractor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../DistributionGenerator/index.html" class="btn btn-neutral float-left" title="netpro2vec.DistributionGenerator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../ProbDocExtractor/index.html" class="btn btn-neutral float-right" title="netpro2vec.ProbDocExtractor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../DistributionGenerator/index.html" class="btn btn-neutral float-left" title="netpro2vec.DistributionGenerator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, Ichcha Manipur and Maurizio Giordano
+        &#169; Copyright 2020, Ichcha Manipur and Maurizio Giordano.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

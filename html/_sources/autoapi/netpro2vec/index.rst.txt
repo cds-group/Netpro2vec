@@ -13,6 +13,7 @@ Submodules
    DistributionGenerator/index.rst
    Netpro2vec/index.rst
    ProbDocExtractor/index.rst
+   showvocab/index.rst
    utils/index.rst
 
 

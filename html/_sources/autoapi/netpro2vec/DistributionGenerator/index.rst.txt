@@ -24,7 +24,8 @@ Functions
    netpro2vec.DistributionGenerator.probability_aggregator_cutoff
 
 
-.. py:class:: DistributionGenerator(distrib_type, graphs: List[ig.Graph], common_bin_list=True, verbose=False)
+.. class:: DistributionGenerator(distrib_type, graphs: List[ig.Graph], common_bin_list=True, verbose=False)
+
 
    Generator class for Node Distance Distribution and Transition probability
    matrices.

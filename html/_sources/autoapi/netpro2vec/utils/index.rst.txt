@@ -13,8 +13,12 @@ Functions
 
 .. autoapisummary::
 
+   netpro2vec.utils.check_file_writable
    netpro2vec.utils.nop
    netpro2vec.utils.vprint
+
+
+.. function:: check_file_writable(fnm)
 
 
 .. function:: nop(it, *a, **k)

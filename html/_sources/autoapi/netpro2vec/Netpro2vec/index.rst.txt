@@ -16,7 +16,8 @@ Classes
 
 
 
-.. py:class:: Netpro2vec(format='graphml', dimensions=128, prob_type: List[str] = ['tm1'], extractor=[1], cut_off=[0.01], agg_by=[5], min_count=5, down_sampling=0.0001, workers=4, epochs=10, learning_rate=0.025, remove_inf=False, vertex_attribute=None, seed=0, verbose=False, encodew=True)
+.. class:: Netpro2vec(format='graphml', dimensions=128, prob_type: List[str] = ['tm1'], extractor=[1], cut_off=[0.01], agg_by=[0], min_count=5, down_sampling=0.0001, workers=4, epochs=10, learning_rate=0.025, remove_inf=False, vertex_attribute=None, seed=0, verbose=False, encodew=True, save_probs=False, load_probs=False, save_vocab=False, load_vocab=False)
+
 
    The class implementation of Netpro2vec model for whole-graph embedding.
    from the IEEE TCBB '20 paper "Netpro2vec: a Graph Embedding Framework for Biological Networks". The procedure
@@ -39,15 +40,14 @@ Classes
        **agg_by** *(list of int, optional)* – list of *aggregators* in words formed with "ndd" annotation. Default is [0].
        The number of bins used to build the Node Distance Distribution histogram is scaled down by
        the "agg_by" value. A unity value means that the number of bins is set to the maximum diameter.
-       A value *n* means that the number of bins is equalt to *max-diameter/n*.
+       A value *n* means that the number of bins is equal to *max-diameter/n*.
        A zero value means that this paramter does not apply to the annotation (i.e. "tm<walk-distance>").   
 
        **extractor** *(list of int, optional)* – list of *extractor modes* in builidng words, one modality for each specified annotation. 
        Default is [0]. Currently, only extractor 1 and 6 are supported. 
        With respect to the corresponding annotation in the **prob_type** list: 
        - extractor 1 returns words only from a single cut off. 
-       - extractor 6 returns multiple words of different lengths from different 
-       probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
+       - extractor 6 returns multiple words of different lengths from different probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
        Extractor modalities 2-5 are not supported since they are under cunstruction.
 
        **min_count** *(int, optional)* – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5
@@ -61,6 +61,14 @@ Classes
        **vertex_labels** *(bool, optional)*: flag to set if graphs have vertex labels to be considered. Default is False
 
        **encodew** *(bool, optional)*: flag to unset if graph words are encoded into hash keys. Default is True
+
+       **save_probs *(bool, optional)*: flag to enable probability distribution saving. Default is False
+
+       **load_probs *(bool, optional)*: flag to enable probability distribution restoring. Default is False
+
+       **save_vocab *(bool, optional)*: flag to enable vocabulary saving. Default is False
+
+       **load_vocab *(bool, optional)*: flag to enable vocabulary restoring. Default is False
 
    .. method:: get_documents(self, graphs: List[ig.Graph])
 
