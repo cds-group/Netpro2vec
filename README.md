@@ -1,9 +1,10 @@
 # Netpro2vec
 A graph embedding technique based on probability distribution representations of graphs and skip-gram learning model
 
-Authors: Ichcha Manipur, Maurizio Giordano, Mario Rosario Guarracino, Lucia Maddalena, Ilaria Granata - 
+Authors: Ichcha Manipur, Maurizio Giordano, Lucia Maddalena, Ilaria Granata - 
 High Performance Computing and Networking (ICAR), Italian National Council of Research (CNR) - 
 Mario Manzo - University of Naples "L'Orientale"
+Mario Rosario Guarracino - University of Cassino and Southern Lazio
 
 ----------------------
 Description
