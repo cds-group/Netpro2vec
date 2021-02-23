@@ -17,6 +17,8 @@ import numpy as np
 import itertools
 import igraph as ig
 from typing import *
+import os
+import pickle as pk
 
 """
 Netrpo2vec.py
@@ -46,15 +48,14 @@ class Netpro2vec:
         **agg_by** *(list of int, optional)* – list of *aggregators* in words formed with "ndd" annotation. Default is [0].
         The number of bins used to build the Node Distance Distribution histogram is scaled down by
         the "agg_by" value. A unity value means that the number of bins is set to the maximum diameter.
-        A value *n* means that the number of bins is equalt to *max-diameter/n*.
+        A value *n* means that the number of bins is equal to *max-diameter/n*.
         A zero value means that this paramter does not apply to the annotation (i.e. "tm<walk-distance>").   
 
         **extractor** *(list of int, optional)* – list of *extractor modes* in builidng words, one modality for each specified annotation. 
         Default is [0]. Currently, only extractor 1 and 6 are supported. 
         With respect to the corresponding annotation in the **prob_type** list: 
         - extractor 1 returns words only from a single cut off. 
-        - extractor 6 returns multiple words of different lengths from different 
-        probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
+        - extractor 6 returns multiple words of different lengths from different probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
         Extractor modalities 2-5 are not supported since they are under cunstruction.
 
         **min_count** *(int, optional)* – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5
@@ -68,13 +69,22 @@ class Netpro2vec:
         **vertex_labels** *(bool, optional)*: flag to set if graphs have vertex labels to be considered. Default is False
 
         **encodew** *(bool, optional)*: flag to unset if graph words are encoded into hash keys. Default is True
+
+        **save_probs *(bool, optional)*: flag to enable probability distribution saving. Default is False
+
+        **load_probs *(bool, optional)*: flag to enable probability distribution restoring. Default is False
+
+        **save_vocab *(bool, optional)*: flag to enable vocabulary saving. Default is False
+
+        **load_vocab *(bool, optional)*: flag to enable vocabulary restoring. Default is False
     """
 
 	def __init__(self, format="graphml", dimensions=128, prob_type: List[str]=["tm1"], 
-		         extractor=[1],cut_off=[0.01], agg_by=[5],
+		         extractor=[1],cut_off=[0.01], agg_by=[0],
 		         min_count=5, down_sampling=0.0001,workers=4, epochs=10, learning_rate=0.025, 
 				 remove_inf=False, vertex_attribute=None, seed=0,
-				 verbose=False,encodew=True):
+				 verbose=False,encodew=True,
+				 save_probs=False, load_probs=False, save_vocab=False, load_vocab=False):
 		"""Creatinng the model."""
 		if len({len(i) for i in [prob_type,extractor,cut_off,agg_by]}) != 1:
 			raise Exception("Probability type list must be equal-sized wrt aggregator and cutoff arguments")
@@ -101,6 +111,14 @@ class Netpro2vec:
 		self.embedding = None
 		self.probmats = {}
 		self.encodew=encodew
+		self.saveprobs = save_probs
+		self.loadprobs = load_probs
+		self.savevocab = save_vocab
+		self.loadvocab = load_vocab
+		if not os.path.exists('.np2vec'):
+			os.makedirs('.np2vec')
+		self.probmatfile = os.path.join('.np2vec','probmats.pkl')
+		self.vocabfile = os.path.join('.np2vec','vocab.pkl')
 		self.min_count=min_count 
 		self.down_sampling=down_sampling
 		self.workers=workers 
@@ -139,10 +157,32 @@ class Netpro2vec:
 	    """
 		self.format = format
 		self.num_graphs = len(graphs)
-		self.__generate_probabilities(graphs)
-		if self.vertex_attribute is not None:
-			self.get_vertex_attributes(graphs)
-		self.__get_document_collections(encodew=self.encodew)
+		if self.loadvocab:
+			try:
+				utils.vprint("Loading vocabulary...", end='\n', verbose=self.verbose)
+				infile = open(self.vocabfile,'rb')
+				self.document_collections_list = pk.load(infile)
+				infile.close()
+			except Exception as e:
+				utils.vprint("Cannot load vocabulary...%s"%e, end='\n', verbose=self.verbose)
+				utils.vprint("...Let's generate it by scratch!", end='\n', verbose=self.verbose)
+				self.__generate_probabilities(graphs)
+				if self.vertex_attribute is not None:
+					self.get_vertex_attributes(graphs)
+				self.__get_document_collections(encodew=self.encodew)
+		else:
+			self.__generate_probabilities(graphs)
+			if self.vertex_attribute is not None:
+				self.get_vertex_attributes(graphs)
+			self.__get_document_collections(encodew=self.encodew)
+		if self.savevocab:
+			try:
+				utils.vprint("Saving vocabulary...", end='\n', verbose=self.verbose)
+				outfile = open(self.vocabfile,'wb')
+				pk.dump(self.document_collections_list, outfile)
+				outfile.close()
+			except Exception as e:
+				raise Exception("Cannot save vocabulary...",e, e.args)
 		self.__run_d2v(dimensions=self.dimensions,min_count=self.min_count,down_sampling=self.down_sampling,
 					workers=self.workers, epochs=self.epochs, learning_rate=self.learning_rate)
 		return self
@@ -164,8 +204,28 @@ class Netpro2vec:
 		return np.array(self.document_collections_list[-1])
 
 	def __generate_probabilities(self, graphs: List[ig.Graph]):
-		for prob_type in self.prob_type:
-			self.probmats[prob_type] = DistributionGenerator(prob_type, graphs,verbose=self.verbose).get_distributions()
+		if self.loadprobs:
+			try:
+				utils.vprint("Loading prob mats...", end='\n', verbose=self.verbose)
+				infile = open(self.probmatfile,'rb')
+				self.probmats = pk.load(infile)
+				infile.close()
+			except Exception as e:
+				utils.vprint("Cannot load saved probs...%s"%e, end='\n', verbose=self.verbose)
+				utils.vprint("...Let's generate them by scratch!", end='\n', verbose=self.verbose)
+				for prob_type in self.prob_type:
+					self.probmats[prob_type] = DistributionGenerator(prob_type, graphs,verbose=self.verbose).get_distributions()
+		else:
+			for prob_type in self.prob_type:
+				self.probmats[prob_type] = DistributionGenerator(prob_type, graphs,verbose=self.verbose).get_distributions()
+			if self.saveprobs:
+				try:
+					utils.vprint("Saving prob mats...", end='\n', verbose=self.verbose)
+					outfile = open(self.probmatfile,'wb')
+					pk.dump(self.probmats, outfile)
+					outfile.close()
+				except Exception as e:
+					raise Exception("Cannot save probs...",e, e.args)
 
 	@delayed
 	@wrap_non_picklable_objects
@@ -197,8 +257,7 @@ class Netpro2vec:
 
 	def get_vertex_attributes(self, graphs):
 		if self.vertex_attribute in graphs[0].vs.attributes():
-			self.vertex_attribute_list = [graphs[x].vs[self.vertex_attribute]
-										  for x in range(0, len(graphs))]
+			self.vertex_attribute_list = [graphs[x].vs[self.vertex_attribute] for x in range(0, len(graphs))]
 		else:
 			raise Exception('The graph does not have the provided vertex '
 							'attribute in -A! ')
@@ -239,12 +298,6 @@ class Netpro2vec:
 							words=prob_type_doc[
 							x], tags=["g_%d"%x]) for x in range(
 							0, len(prob_type_doc))])
-				# I think this is a not-needed duplication
-				#for prob_type_doc in document_collections_all:
-				#	self.document_collections_list.append([
-				#		models.doc2vec.TaggedDocument(words=prob_type_doc[x],
-				#									  tags=["g_%d"%x]) for x in
-				#		range(0, len(prob_type_doc))])
 			else:
 				self.document_collections_list = document_collections_all
 		else:
