@@ -85,43 +85,31 @@ $ python setup.py install
 Running
 ----------------------
 
-To run the <code>test.py</code> script you need to install the scikit learn package.
-Please refer to the official guide [Installing scikit-learn](https://scikit-learn.org/stable/install.html).
-
-To test the code you can run the command on MUTAG dataset:
-```
-$ python test.py --input-path datasets/MUTAG/graphml 
-   --labelfile datasets/MUTAG/MUTAG.txt 
-   --label-position 2 i
-   --distributions tm1 
-   --extractors 1 
-   --cutoffs 0.01 
-   --aggregators 0 
-   --verbose
-```
-But you can load Netpro2vec package into you python interpreter and work on you graphs like:
+You can test Netpro2vec model for graph embedding by running the following python code:
 
 ```
 >>> import os
->>> path = "...your-path-to-graph-directory..."
+>>> path = "data/Mutag/graphml"
 >>> filenames = os.listdir(path)
 >>> import igraph as ig 
 >>> graphs = [ig.load(os.path.join(path,f)) for f in filenames]
 >>> from netpro2vec.Netpro2vec import Netpro2vec
 >>> model = Netpro2vec()
->>> medel.fit(graphs)
+>>> model.fit(graphs)
 >>> model.get_embedding()
-array([[ 1.6579988e-04, -1.2643806e-03, -9.3608483e-04, ...,
-         3.5708759e-03,  9.1854345e-05, -2.4944848e-05],
-       [ 1.3941363e-03, -1.4870684e-04,  2.2236386e-03, ...,
-         2.7858163e-03, -1.1076004e-03, -1.6276642e-03],
-       [-7.9958932e-04,  3.7489494e-03, -2.2576803e-03, ...,
-        -2.2035998e-03,  2.9178325e-03, -3.3222451e-03],
+array([[ 2.3669314e-03, -1.6807126e-03,  1.3935004e-04, ...,
+         1.1605929e-03,  3.8243207e-04,  3.3924100e-03],
+       [ 2.6130748e-03,  1.4776569e-03,  7.2231720e-05, ...,
+        -2.7432586e-03,  2.2828898e-03,  1.6866124e-03],
+       [-9.5788226e-04, -1.7322834e-03,  2.3791294e-03, ...,
+        -2.7187262e-03, -1.7086907e-03,  1.4063254e-03],
        ...,
-       [ 1.9070054e-03,  2.5690219e-04, -1.7170990e-03, ...,
-        -2.1398342e-03, -1.1024768e-03, -2.9834590e-03],
-       [-3.7194900e-03,  4.5244402e-04, -6.9161621e-04, ...,
-        -3.6566083e-03,  4.5301823e-04,  2.0657710e-04],
-       [ 4.9070415e-05,  9.1010216e-04, -2.1217461e-03, ...,
-        -2.5239761e-03, -2.7091724e-03,  9.7283931e-04]], dtype=float32)
+       [ 2.6994976e-03,  3.7764042e-04,  8.7952241e-04, ...,
+        -3.5347182e-03, -4.4570959e-04,  2.0428676e-04],
+       [ 3.1036076e-03,  2.0614895e-03, -2.9027397e-03, ...,
+         3.6049024e-03, -2.0037764e-03, -6.2212220e-04],
+       [-3.3860563e-03, -2.9692445e-03,  1.3172977e-03, ...,
+         1.7665974e-03,  8.7682210e-04,  1.6081571e-03]], dtype=float32)
 ```
+
+For using Netpro2vec in you applications, see the API documentation included in folder <code>html</code>.
