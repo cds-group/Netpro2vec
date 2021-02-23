@@ -10,7 +10,7 @@ Mario Rosario Guarracino - University of Cassino and Southern Lazio
 Description
 ----------------------
 
-Netpro2vec is a neural embedding framework, based on probability distribution representations of graphs,namedNetpro2vec. The goal is to look at basic node descriptions other than the degree, such as those induced by the TransitionMatrix and Node Distance Distribution.Netpro2vecprovides embeddings completely independent from the task and nature of the data.The framework is evaluated on synthetic and various real biomedical network datasets through a comprehensive experimentalclassification phase and is compared to well-known competitors
+Netpro2vec is a neural embedding framework, based on probability distribution representations of graphs. The goal is to look at node descriptions, such as those induced by the Transition Matrix and Node Distance Distribution. Netpro2vec provides embeddings completely independent from the task and nature of the data. The framework is evaluated on synthetic and various real biomedical network datasets through a comprehensive experimental classification phase and is compared to well-known competitors.
 
 ----------------------
 Citation Details
@@ -18,8 +18,8 @@ Citation Details
   
 This work is the subject of the article:
 
-Ichcha Manipur, Mario Manzo, Ilaria Granata, Maurizio Giordano*, Lucia Maddalena, andMario R. Guarracino
-"Netpro2vec: a Graph Embedding Framework forBiomedical Applications".
+Ichcha Manipur, Mario Manzo, Ilaria Granata, Maurizio Giordano*, Lucia Maddalena, and Mario R. Guarracino
+"Netpro2vec: a Graph Embedding Framework for Biomedical Applications".
 Submitted to "IEEE/ACM TCBB JOURNAL - Special Issue on Deep Learning and Graph Embeddings for Network Biology".
  
 At the current time, when using this source code please reference this work by citing the following
@@ -51,7 +51,7 @@ The source code is provided without any warranty of fitness for any purpose.
 You can redistribute it and/or modify it under the terms of the
 GNU General Public License (GPL) as published by the Free Software Foundation,
 either version 3 of the License or (at your option) any later version.
-A copy of the GPL license is provided in the "GPL.txt" file.
+A copy of the GPL license is provided in the "License.txt" file.
 
 ----------------------
 Requirements
