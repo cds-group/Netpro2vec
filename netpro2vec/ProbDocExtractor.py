@@ -32,17 +32,9 @@ class ProbDocExtractor:
 		if self.extractor == 1:
 			self.ordered_probability_extractor()
 		elif self.extractor == 2:
-			self.prob_to_string_feature_extractor()
-		elif self.extractor == 3:
-			self.unordered_probability_extractor()
-		elif self.extractor == 4:
-			self.unordered_probability_extractor_round()
-		elif self.extractor == 5:
-			self.ordered_probability_extractor_round()
-		elif self.extractor == 6:
 			self.ordered_probability_extractor_multi()
 		else:
-			raise Exception("extractor level is in the range [1, 6]")
+			raise Exception("extractor level is in the range [1, 2]")
 
 	def ordered_probability_extractor(self):
 		"""
@@ -56,62 +48,6 @@ class ProbDocExtractor:
 			self.probability_distrib_matrix, axis=1))
 		features_graph = probability_distrib_matrix.tolist()
 		cut = (self.probability_distrib_matrix > 0).sum(axis=1)
-		self.features_graph = [features_graph[i][0:cut[i]] for i in range(0,
-																	  len(cut))]
-		self.get_graph_document()
-
-	def prob_to_string_feature_extractor(self):
-		"""
-		Node-wise probability values for each rooted node converted to words
-		Does not really work, does not create high frequency words,
-		so no vocabulary created.
-		"""
-		probability_distrib_matrix = self.probability_distrib_matrix * 1000
-		probability_distrib_matrix = probability_distrib_matrix.astype(int)
-		self.features_graph = probability_distrib_matrix.tolist()
-		self.get_graph_document()
-
-	def unordered_probability_extractor(self):
-		"""
-		Unorodered sequence of nodes (non-neg probabilities) or bin index (of
-		distances or node labels) for each rooted node converted to words. For
-		LFR,
-		unweighted synthetic data.
-		"""
-		features_graph = self.probability_distrib_matrix.tolist()
-		cut = (self.probability_distrib_matrix > 0).sum(axis=1)
-		self.features_graph = [np.array(np.nonzero(features_graph[
-													   i])).flatten().tolist()
-							   for i in
-							   range(0, len(cut))]
-		self.get_graph_document()
-
-	def unordered_probability_extractor_round(self):
-		"""
-		Ordered sequence (decreasing probability) of nodes or bin index (of
-		distances) for each rooted node converted to words.  round to 2,
-		to be tested properly.
-		"""
-		probability_distrib_matrix = np.round(
-			self.probability_distrib_matrix, 2)
-		features_graph = probability_distrib_matrix.tolist()
-		cut = (probability_distrib_matrix > 0).sum(axis=1)
-		self.features_graph = [features_graph[i][0:cut[i]] for i in range(0,
-																	  len(cut))]
-		self.get_graph_document()
-
-	def ordered_probability_extractor_round(self):
-		"""
-		Ordered sequence (decreasing probability) of nodes or bin index (of
-		distances) for each rooted node converted to words. round to 2,
-		to be tested
-		"""
-		probability_distrib_matrix = np.round(
-			self.probability_distrib_matrix, 2)
-		probability_distrib_matrix = np.fliplr(np.argsort(
-			probability_distrib_matrix, axis=1))
-		features_graph = probability_distrib_matrix.tolist()
-		cut = (probability_distrib_matrix > 0).sum(axis=1)
 		self.features_graph = [features_graph[i][0:cut[i]] for i in range(0,
 																	  len(cut))]
 		self.get_graph_document()
