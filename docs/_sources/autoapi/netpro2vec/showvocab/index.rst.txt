@@ -1,0 +1,24 @@
+:mod:`netpro2vec.showvocab`
+===========================
+
+.. py:module:: netpro2vec.showvocab
+
+
+Module Contents
+---------------
+
+.. data:: vocabfile
+   
+
+   
+
+.. data:: infile
+   
+
+   
+
+.. data:: document_collections_list
+   
+
+   
+

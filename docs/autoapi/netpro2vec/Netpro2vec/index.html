@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>netpro2vec.Netpro2vec &mdash; Netpro2vec 0.1.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="netpro2vec.ProbDocExtractor" href="../ProbDocExtractor/index.html" />
+    <link rel="prev" title="netpro2vec.DistributionGenerator" href="../DistributionGenerator/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/netpro2vec.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.Netpro2vec</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#netpro2vec.Netpro2vec.Netpro2vec">Netpro2vec</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../DistributionGenerator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.DistributionGenerator</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProbDocExtractor/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.ProbDocExtractor</span></code></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Netpro2vec</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec</span></code></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.Netpro2vec</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/autoapi/netpro2vec/Netpro2vec/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-netpro2vec.Netpro2vec">
+<span id="netpro2vec-netpro2vec"></span><h1><a class="reference internal" href="#module-netpro2vec.Netpro2vec" title="netpro2vec.Netpro2vec"><code class="xref py py-mod docutils literal notranslate"><span class="pre">netpro2vec.Netpro2vec</span></code></a><a class="headerlink" href="#module-netpro2vec.Netpro2vec" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#netpro2vec.Netpro2vec.Netpro2vec" title="netpro2vec.Netpro2vec.Netpro2vec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Netpro2vec</span></code></a></p></td>
+<td><p>The class implementation of Netpro2vec model for whole-graph embedding.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec">
+<em class="property">class </em><code class="sig-prename descclassname">netpro2vec.Netpro2vec.</code><code class="sig-name descname">Netpro2vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'graphml'</span></em>, <em class="sig-param"><span class="n">dimensions</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">prob_type</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">['tm1']</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">[1]</span></em>, <em class="sig-param"><span class="n">cut_off</span><span class="o">=</span><span class="default_value">[0.01]</span></em>, <em class="sig-param"><span class="n">agg_by</span><span class="o">=</span><span class="default_value">[0]</span></em>, <em class="sig-param"><span class="n">min_count</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">down_sampling</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">0.025</span></em>, <em class="sig-param"><span class="n">remove_inf</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertex_attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">encodew</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">load_probs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">save_vocab</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">load_vocab</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>The class implementation of Netpro2vec model for whole-graph embedding.
+from the IEEE TCBB ‘20 paper “Netpro2vec: a Graph Embedding Framework for Biological Networks”. The procedure
+uses probability distribution representations of graphs and skip-gram learning modelor later.</p>
+<dl>
+<dt>Args:</dt><dd><p><strong>format</strong> <em>(str, optional)</em> -  graph format. Dfault is “graphml”</p>
+<p><strong>dimensions</strong> <em>(int, optional)</em> – number of features. Default is 128.</p>
+<p><strong>prob_type</strong> <em>(list of str, optional)</em> –  list of probability types. Default is [“tm1”] (allowed values: “ndd”, “tm&lt;walk-distance&gt;”).
+“ndd” means that a word for each node is formed by concatenating labels (or node ids) of nodes whose distance above a cut-off threshold with respect to the source node.
+“tm&lt;walf-distance&gt;” means that a word for each node is formed  by concatenating node labels (or node ids) which are reacheable by the source node
+with a transition probability above a cut-off threshold.</p>
+<p><strong>cut_off</strong> <em>(list of float, optional)</em> –  list of cut-off thresholds to form words for each node. Default is [0.01].
+Only the labels (or ids) of nodes with transition probability (for “tm&lt;walk-distance&gt;”) or with distance (for “ndd”)
+above this threshold are used for building the word.</p>
+<p><strong>agg_by</strong> <em>(list of int, optional)</em> – list of <em>aggregators</em> in words formed with “ndd” annotation. Default is [0].
+The number of bins used to build the Node Distance Distribution histogram is scaled down by
+the “agg_by” value. A unity value means that the number of bins is set to the maximum diameter.
+A value <em>n</em> means that the number of bins is equal to <em>max-diameter/n</em>.
+A zero value means that this paramter does not apply to the annotation (i.e. “tm&lt;walk-distance&gt;”).</p>
+<p><strong>extractor</strong> <em>(list of int, optional)</em> – list of <em>extractor modes</em> in builidng words, one modality for each specified annotation.
+Default is [0]. Currently, only extractor 1 and 6 are supported.
+With respect to the corresponding annotation in the <strong>prob_type</strong> list:
+- extractor 1 returns words only from a single cut off.
+- extractor 6 returns multiple words of different lengths from different probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
+Extractor modalities 2-5 are not supported since they are under cunstruction.</p>
+<p><strong>min_count</strong> <em>(int, optional)</em> – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5</p>
+<p><strong>workers</strong> <em>(int, optional)</em> – use these many worker threads to train the model (Doc2Vec). Default is 4</p>
+<p><strong>epochs</strong> <em>(int, optional)</em> – Number of iterations (epochs) over the corpus (Doc2Vec). Default is 10</p>
+<p><strong>remove_inf</strong> <em>(bool, optional)</em>: flag for removal of infinity value in histogram bins. Default is False.</p>
+<p><strong>vertex_labels</strong> <em>(bool, optional)</em>: flag to set if graphs have vertex labels to be considered. Default is False</p>
+<p><strong>encodew</strong> <em>(bool, optional)</em>: flag to unset if graph words are encoded into hash keys. Default is True</p>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>save_probs <em>(bool, optional)</em>: flag to enable probability distribution saving. Default is False</p>
+<p><a href="#id3"><span class="problematic" id="id4">**</span></a>load_probs <em>(bool, optional)</em>: flag to enable probability distribution restoring. Default is False</p>
+<p><a href="#id5"><span class="problematic" id="id6">**</span></a>save_vocab <em>(bool, optional)</em>: flag to enable vocabulary saving. Default is False</p>
+<p><a href="#id7"><span class="problematic" id="id8">**</span></a>load_vocab <em>(bool, optional)</em>: flag to enable vocabulary restoring. Default is False</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.get_documents">
+<code class="sig-name descname">get_documents</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">graphs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ig.Graph<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.get_documents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Document generator method of Netpro2vec model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><strong>graphs</strong> <em>(List igraph.Graph objs)</em> - list of graphs in igraph format types.</p>
+</dd>
+<dt>Return:</dt><dd><p>The lisy of documents representing the graphs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">graphs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ig.Graph<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fitting method of Netpro2vec model.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p><strong>graphs</strong> <em>(List igraph.Graph objs)</em> - list of graphs in igraph format types.</p>
+</dd>
+<dt>Return:</dt><dd><p>The trained <strong>Netpro2vec</strong> model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.get_embedding">
+<code class="sig-name descname">get_embedding</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.get_embedding" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access embedding of Netpro2vec model.</p>
+<dl class="simple">
+<dt>Return:</dt><dd><p>The produced embedding in numpy array format (None if the mode was not trained).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.get_memberships">
+<code class="sig-name descname">get_memberships</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.get_memberships" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access last document list used for training the Netpro2vec model.</p>
+<dl class="simple">
+<dt>Return:</dt><dd><p>The document list used in last model training ([] if the model was never trained).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.__generate_probabilities">
+<code class="sig-name descname">__generate_probabilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">graphs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ig.Graph<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.__generate_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.__batch_feature_extractor">
+<code class="sig-name descname">__batch_feature_extractor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">probability_distrib_matrix</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">word_tag</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tag</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">aggregate</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">cut</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">encodew</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">extractor</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.__batch_feature_extractor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a document collection describing a single graph
+by concatenating distribution matrix data
+(NDD or TM&lt;int&gt;) for each node in the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.get_vertex_attributes">
+<code class="sig-name descname">get_vertex_attributes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">graphs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.get_vertex_attributes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.__get_document_collections">
+<code class="sig-name descname">__get_document_collections</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">tag_doc</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">encodew</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.__get_document_collections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate documents for graphs.
+If multiple distributions are specified, documents are generated for each
+distribution, then merged ito una single vocabulary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.__get_diction_corpus">
+<code class="sig-name descname">__get_diction_corpus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.__get_diction_corpus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="netpro2vec.Netpro2vec.Netpro2vec.__run_d2v">
+<code class="sig-name descname">__run_d2v</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">dimensions</span><span class="o">=</span><span class="default_value">128</span></em>, <em class="sig-param"><span class="n">min_count</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">down_sampling</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">workers</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">learning_rate</span><span class="o">=</span><span class="default_value">0.025</span></em><span class="sig-paren">)</span><a class="headerlink" href="#netpro2vec.Netpro2vec.Netpro2vec.__run_d2v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run Doc2Vec library to:
+1) produce the vocabulary from the list of documents representing the graphs
+2) train the model on the vocabulary.
+3) produce the embedding matrix, then store in the “embedding” attribute of the
+Netpro2vec object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../ProbDocExtractor/index.html" class="btn btn-neutral float-right" title="netpro2vec.ProbDocExtractor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../DistributionGenerator/index.html" class="btn btn-neutral float-left" title="netpro2vec.DistributionGenerator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2020, Ichcha Manipur and Maurizio Giordano.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

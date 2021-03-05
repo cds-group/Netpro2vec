@@ -1,0 +1,51 @@
+:mod:`netpro2vec.ProbDocExtractor`
+==================================
+
+.. py:module:: netpro2vec.ProbDocExtractor
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   netpro2vec.ProbDocExtractor.ProbDocExtractor
+
+
+
+.. class:: ProbDocExtractor(probability_distrib_matrix, doc_tag, word_tag=None, extractor=1, tag=True, encodew=True, vertex_labels=None)
+
+
+   Feature extractor class for Netprob2vec
+   Convert graph probability matrix to a document
+   specify extractor for ordered/unordered/rounded/tagged/untagged
+
+   .. method:: ordered_probability_extractor(self)
+
+      Ordered sequence (decreasing probability) of nodes or bin index (of
+      distances) for each rooted node converted to words
+      This is for networks edge-weighted with real data like gene(perhaps not
+      for weights with stat data like correlation or p-values - To be tested).
+
+
+   .. method:: ordered_probability_extractor_multi(self)
+
+      Ordered sequence (decreasing probability) of nodes or bin index (of
+      distances) for each rooted node converted to words
+      This is for networks edge-weighted with real data like gene(perhaps not
+      for weights with stat data like correlation or p-values - To be tested).
+
+
+   .. method:: get_graph_document(self)
+
+
+   .. method:: get_graph_document_split(self, encode=True)
+
+
+   .. method:: get_tagged_doc(self, hashing_list)
+
+
+
