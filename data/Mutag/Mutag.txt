@@ -1,6 +1,6 @@
 Samples	labels
-mutag_1	c0	
-mutag_2	c0	
+mutag_1	c0
+mutag_2	c0
 mutag_3	c0
 mutag_4	c0
 mutag_5	c0
