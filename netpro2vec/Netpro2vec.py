@@ -129,6 +129,7 @@ class Netpro2vec:
 		self.document_collections_list = []
 		self.verbose = verbose
 		self.tqdm = tqdm if self.verbose else utils.nop
+		self.model = None
 
 	def get_documents(self, graphs: List[ig.Graph]):
 		"""Document generator method of Netpro2vec model.
@@ -187,6 +188,26 @@ class Netpro2vec:
 					workers=self.workers, epochs=self.epochs, learning_rate=self.learning_rate)
 		return self
 
+	def infer_vector(self, graphs: List[ig.Graph]):
+		"""Inferring embedding method of Netpro2vec model.
+
+	    Args:
+	        **graphs** *(List igraph.Graph objs)* - list of graphs in igraph format types.
+
+	    Return:
+			The trained **Netpro2vec** model.
+	    """
+		probmats = self.__generate_probabilities_newsample(graphs)
+		docs = self.__get_document_collections_newsample(probmats, encodew=self.encodew)
+		idx = 0
+		if len(self.prob_type) > 1:
+			idx = len(self.prob_type) - 1
+		documents = [ d.words for d in docs[idx]]
+		utils.vprint("Doc2Vec inferring in progress...", end='', verbose=self.verbose)
+		embedding_list = [self.model.infer_vector(doc,steps=self.epochs,alpha=self.learning_rate) for doc in documents]
+		utils.vprint("Done!", verbose=self.verbose)
+		return embedding_list
+
 	def get_embedding(self):
 		"""Access embedding of Netpro2vec model.
 
@@ -226,6 +247,12 @@ class Netpro2vec:
 					outfile.close()
 				except Exception as e:
 					raise Exception("Cannot save probs...",e, e.args)
+
+	def __generate_probabilities_newsample(self, graphs: List[ig.Graph]):
+		probmats = {}
+		for prob_type in self.prob_type:
+			probmats[prob_type] = DistributionGenerator(prob_type, graphs,verbose=self.verbose).get_distributions()
+		return probmats
 
 	@delayed
 	@wrap_non_picklable_objects
@@ -303,6 +330,49 @@ class Netpro2vec:
 		else:
 			self.document_collections_list.append(document_collections)
 
+	def __get_document_collections_newsample(self, probmats, workers=4, tag_doc=True, encodew=True):
+		''' Generate documents for graphs. 
+		    If multiple distributions are specified, documents are generated for each
+		    distribution, then merged ito una single vocabulary.
+		'''
+		document_collections_list = []
+		document_collections_all = []
+		for prob_idx,prob_type in enumerate(self.prob_type):
+			if (len(self.prob_type) > 1) or (tag_doc is False):
+				tag = False
+			else:
+				tag = True
+			prob_mats = probmats[prob_type]
+			utils.vprint("Building vocabulary for %s..."%prob_type, verbose=self.verbose)			
+			with parallel_backend('threading', n_jobs=workers):
+				document_collections = Parallel()(self.__batch_feature_extractor(p, str(i), prob_type, tag=tag,
+											extractor=self.extractor[prob_idx],
+											encodew=encodew,
+											cut=self.cut_off[prob_idx],
+											aggregate=self.agg_by[prob_idx])
+												  for i, p in enumerate(self.tqdm(prob_mats)))
+			document_collections = [document_collections[
+										x].graph_document for x in
+									range(0, len(document_collections))]
+			document_collections_all.append(document_collections)
+		# merge multiple documents into one vocabulary
+		if len(self.prob_type) > 1:
+			doc_merge = [e for e in zip(*document_collections_all)]
+			merged_document = [list(itertools.chain.from_iterable(doc)) for doc in doc_merge]
+			document_collections_all.append(doc_merge)
+			if tag_doc:
+				for prob_type_doc in document_collections_all:
+					document_collections_list.append([
+						models.doc2vec.TaggedDocument(
+							words=prob_type_doc[
+							x], tags=["g_%d"%x]) for x in range(
+							0, len(prob_type_doc))])
+			else:
+				document_collections_list = document_collections_all
+		else:
+			document_collections_list.append(document_collections)
+		return document_collections_list
+
 	def __get_diction_corpus(self):
 		# for tfidf and lda
 		diction = corpora.Dictionary(
@@ -334,6 +404,7 @@ class Netpro2vec:
 						epochs=epochs,
 						alpha=learning_rate,
 						seed=self.randomseed)
+		self.model = model
 		utils.vprint("Done!", verbose=self.verbose)
 		self.embedding = model.docvecs.doctag_syn0
 
