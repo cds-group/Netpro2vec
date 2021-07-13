@@ -188,7 +188,7 @@ class Netpro2vec:
 					workers=self.workers, epochs=self.epochs, learning_rate=self.learning_rate)
 		return self
 
-	def infer_vector(self, graphs: List[ig.Graph]):
+	def infer_vector(self, graphs: List[ig.Graph], steps=None, alpha=None):
 		"""Inferring embedding method of Netpro2vec model.
 
 	    Args:
@@ -204,7 +204,9 @@ class Netpro2vec:
 			idx = len(self.prob_type) - 1
 		documents = [ d.words for d in docs[idx]]
 		utils.vprint("Doc2Vec inferring in progress...", end='', verbose=self.verbose)
-		embedding_list = [self.model.infer_vector(doc,steps=self.epochs,alpha=self.learning_rate) for doc in documents]
+		steps = self.epochs if steps is None
+		alpha = self.learning_rate if alpha is None
+		embedding_list = [self.model.infer_vector(doc,steps=steps,alpha=alpha) for doc in documents]
 		utils.vprint("Done!", verbose=self.verbose)
 		return embedding_list
 
