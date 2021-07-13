@@ -198,6 +198,8 @@ class Netpro2vec:
 			The trained **Netpro2vec** model.
 	    """
 		probmats = self.__generate_probabilities_newsample(graphs)
+		if self.vertex_attribute is not None:
+			self.get_vertex_attributes(graphs)
 		docs = self.__get_document_collections_newsample(probmats, encodew=self.encodew)
 		idx = 0
 		if len(self.prob_type) > 1:
