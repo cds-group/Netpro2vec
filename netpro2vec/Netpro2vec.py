@@ -205,9 +205,9 @@ class Netpro2vec:
 		if len(self.prob_type) > 1:
 			idx = len(self.prob_type) - 1
 		documents = [ d.words for d in docs[idx]]
-		utils.vprint("Doc2Vec inferring in progress...", end='', verbose=self.verbose)
 		if steps is None: steps = self.epochs 
 		if alpha is None: alpha = self.learning_rate
+		utils.vprint("Doc2Vec inferring (steps=%d, alpha%f)in progress..."%(steps,alpha), end='', verbose=self.verbose)
 		embedding_list = [self.model.infer_vector(doc,steps=steps,alpha=alpha) for doc in documents]
 		utils.vprint("Done!", verbose=self.verbose)
 		return embedding_list
