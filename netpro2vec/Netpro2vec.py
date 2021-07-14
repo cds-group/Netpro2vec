@@ -131,6 +131,15 @@ class Netpro2vec:
 		self.tqdm = tqdm if self.verbose else utils.nop
 		self.model = None
 
+	def get_dictionary_corpus(self):
+		# for tfidf and lda
+		diction = corpora.Dictionary(
+			[simple_preprocess(" ".join(line)) for line in
+			 self.document_collections_list[-1]])
+		corpus = [diction.doc2bow(simple_preprocess(" ".join(line))) for line in
+				  self.document_collections_list[-1]]
+		return diction, corpus
+
 	def get_documents(self, graphs: List[ig.Graph]):
 		"""Document generator method of Netpro2vec model.
 
