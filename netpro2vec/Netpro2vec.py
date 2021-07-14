@@ -140,6 +140,14 @@ class Netpro2vec:
 				  self.document_collections_list[-1]]
 		return diction, corpus
 
+
+	def get_sentences(self, graphs: List[ig.Graph]):
+		probmats = self.__generate_probabilities_newsample(graphs)
+		if self.vertex_attribute is not None:
+			self.get_vertex_attributes(graphs)
+		docs = self.__get_document_collections_newsample(probmats, encodew=self.encodew)
+		return docs
+		
 	def get_documents(self, graphs: List[ig.Graph]):
 		"""Document generator method of Netpro2vec model.
 
