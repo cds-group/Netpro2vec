@@ -1,5 +1,5 @@
 # Netpro2vec
-A graph embedding technique based on probability distribution representations of graphs and skip-gram learning model
+A graph embedding technique based on probability distribution representations of graphs and skip-gram learning model.
 
 Authors: Ichcha Manipur, Maurizio Giordano, Lucia Maddalena, Ilaria Granata - 
 High Performance Computing and Networking (ICAR), Italian National Council of Research (CNR) - 
@@ -16,30 +16,19 @@ Netpro2vec is a neural embedding framework, based on probability distribution re
 Citation Details
 ----------------------
   
-This work is the subject of the article:
+If you use the source code in your work please reference this work by citing the following paper:
 
-Ichcha Manipur, Mario Manzo, Ilaria Granata, Maurizio Giordano*, Lucia Maddalena, and Mario R. Guarracino
-"Netpro2vec: a Graph Embedding Framework for Biomedical Applications".
-Submitted to "IEEE/ACM TCBB JOURNAL - Special Issue on Deep Learning and Graph Embeddings for Network Biology".
- 
-At the current time, when using this source code please reference this work by citing the following
-paper:
-
-I. Granata, M. R. Guarracino, V. A. Kalyagin, L. Maddalena, I. Manipur, and P. M. Pardalos,
-“Supervised classification of metabolic networks,” 
-in 2018 IEEE Int. Conf. on Bioinformatics and Biomedicine (BIBM). 
-IEEE, 2018, pp. 2688–2693.
+Manipur, I., Manzo, M., Granata, I., Giordano, M., Maddalena, L. and Guarracino, M.R., 2021. Netpro2vec: a Graph Embedding Framework for Biomedical Applications. IEEE/ACM Transactions on Computational Biology and Bioinformatics.
  
 Bibtex:
 
 ```
-@inproceedings{granata2018supervised,
-  title={Supervised classification of metabolic networks},
-  author={Granata, Ilaria and Guarracino, Mario R and Kalyagin, Valery A and Maddalena, Lucia and Manipur, Ichcha and Pardalos, Panos M},
-  booktitle={2018 IEEE Int. Conf. on Bioinformatics and Biomedicine (BIBM)},
-  pages={2688--2693},
-  year={2018},
-  organization={IEEE}
+@article{manipur2021netpro2vec,
+  title={Netpro2vec: a Graph Embedding Framework for Biomedical Applications},
+  author={Manipur, Ichcha and Manzo, Mario and Granata, Ilaria and Giordano, Maurizio and Maddalena, Lucia and Guarracino, Mario Rosario},
+  journal={IEEE/ACM Transactions on Computational Biology and Bioinformatics},
+  year={2021},
+  publisher={IEEE}
 }
 ```
 
@@ -61,7 +50,7 @@ To run the code the following software must be installed on your system:
 
 1. Python 3.6 (later versions may also work)
 
-An the following python packages:
+And the following python packages:
 
 ```
 tqdm>=4.46.1
@@ -77,7 +66,7 @@ python_igraph>=0.8.2
 Installation
 ----------------------
 
-In the root directory just run:
+In the root directory run:
 
 ```
 $ python setup.py install
@@ -86,7 +75,7 @@ $ python setup.py install
 Running
 ----------------------
 
-You can test Netpro2vec model for graph embedding by running the following python code:
+You can test the Netpro2vec model for graph embedding by running the following python code:
 
 ```
 >>> import os
@@ -113,4 +102,4 @@ array([[ 2.3669314e-03, -1.6807126e-03,  1.3935004e-04, ...,
          1.7665974e-03,  8.7682210e-04,  1.6081571e-03]], dtype=float32)
 ```
 
-For using Netpro2vec in you application, see the API documentation included in folder <code>html</code>.
+For using Netpro2vec in you application, see the API documentation included in the folder <code>html</code>.
