@@ -55,8 +55,7 @@ class Netpro2vec:
         Default is [0]. Currently, only extractor 1 and 6 are supported. 
         With respect to the corresponding annotation in the **prob_type** list: 
         - extractor 1 returns words only from a single cut off. 
-        - extractor 6 returns multiple words of different lengths from different probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
-        Extractor modalities 2-5 are not supported since they are under cunstruction.
+        - extractor 2 returns multiple words of different lengths from different probability cut offs (The set of predefinied cut offs is: 0, 0.1, 0.3, 0.5).
 
         **min_count** *(int, optional)* – Ignores all words with total frequency lower than this (Doc2Vec). Default is 5
 
@@ -94,8 +93,8 @@ class Netpro2vec:
 			if prob_type[i] != "ndd" and int(a) != 0:
 				print(a)
 				raise Exception("Aggregators values for %s must be 0 (disabled)"%prob_type[i])
-		if any(e != 1 and e != 6 for (e) in extractor):	
-			raise Exception("Supported extractor modes are 1 (single cut-off) and 6 (multiple cut-offs)")
+		if any(e != 1 and e != 2 for (e) in extractor):	
+			raise Exception("Supported extractor modes are 1 (single cut-off) and 2 (multiple cut-offs)")
 		if dimensions < 0: 
 			raise Exception("Dimensions must be >0 (default 128)")
 		if format not in ["graphml", "edgelist"]: 
