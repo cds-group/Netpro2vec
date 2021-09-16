@@ -125,7 +125,7 @@ class ProbDocExtractor:
 
 		if self.tag:
 			self.graph_document = self.get_tagged_doc(self.graph_document)
-		if self.extractor <= 5:
+		if self.extractor == 1:
 			self.probability_distrib_matrix = []
 			self.features_graph = []
 
