@@ -227,6 +227,30 @@ class Netpro2vec:
 		embedding_list = [self.model.infer_vector(doc,steps=steps,alpha=alpha) for doc in documents]
 		utils.vprint("Done!", verbose=self.verbose)
 		return embedding_list
+	# for gensym 4.x compatibility
+	def infer_vector(self, graphs: List[ig.Graph], epochs=None, alpha=None):
+		"""Inferring embedding method of Netpro2vec model.
+
+	    Args:
+	        **graphs** *(List igraph.Graph objs)* - list of graphs in igraph format types.
+
+	    Return:
+			The trained **Netpro2vec** model.
+	    """
+		probmats = self.__generate_probabilities_newsample(graphs)
+		if self.vertex_attribute is not None:
+			self.get_vertex_attributes(graphs)
+		docs = self.__get_document_collections_newsample(probmats, encodew=self.encodew)
+		idx = 0
+		if len(self.prob_type) > 1:
+			idx = len(self.prob_type) - 1
+		documents = [ d.words for d in docs[idx]]
+		if epochs is None: epochs = self.epochs 
+		if alpha is None: alpha = self.learning_rate
+		utils.vprint("Doc2Vec inferring (steps=%d, alpha%f) in progress..."%(steps,alpha), end='', verbose=self.verbose)
+		embedding_list = [self.model.infer_vector(doc,epochs=epochs,alpha=alpha) for doc in documents]
+		utils.vprint("Done!", verbose=self.verbose)
+		return embedding_list
 
 	def get_embedding(self):
 		"""Access embedding of Netpro2vec model.
@@ -426,5 +450,8 @@ class Netpro2vec:
 						seed=self.randomseed)
 		self.model = model
 		utils.vprint("Done!", verbose=self.verbose)
-		self.embedding = model.docvecs.doctag_syn0
+		if gensim.__version__ >= "4":
+			self.embedding = model.docvecs.vectors
+		else:
+			self.embedding = model.docvecs.doctag_syn0
 
