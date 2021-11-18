@@ -451,7 +451,7 @@ class Netpro2vec:
 						seed=self.randomseed)
 		self.model = model
 		utils.vprint("Done!", verbose=self.verbose)
-		if gensim.__version__ >= "4":
+		if gensimversion >= "4":
 			self.embedding = model.docvecs.vectors
 		else:
 			self.embedding = model.docvecs.doctag_syn0
