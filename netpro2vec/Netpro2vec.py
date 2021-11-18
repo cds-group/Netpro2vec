@@ -13,6 +13,7 @@ from netpro2vec.DistributionGenerator import DistributionGenerator, \
 from netpro2vec import utils
 from gensim.utils import simple_preprocess
 from gensim import models, corpora
+from gensim import __version__ as gensimversion
 import numpy as np
 import itertools
 import igraph as ig
