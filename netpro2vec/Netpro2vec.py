@@ -248,7 +248,7 @@ class Netpro2vec:
 		documents = [ d.words for d in docs[idx]]
 		if epochs is None: epochs = self.epochs 
 		if alpha is None: alpha = self.learning_rate
-		utils.vprint("Doc2Vec inferring (steps=%d, alpha%f) in progress..."%(steps,alpha), end='', verbose=self.verbose)
+		utils.vprint("Doc2Vec inferring (steps=%d, alpha%f) in progress..."%(epochs,alpha), end='', verbose=self.verbose)
 		embedding_list = [self.model.infer_vector(doc,epochs=epochs,alpha=alpha) for doc in documents]
 		utils.vprint("Done!", verbose=self.verbose)
 		return embedding_list
