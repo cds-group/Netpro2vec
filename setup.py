@@ -15,7 +15,7 @@ setup(
       "tqdm>=4.46.1",
       "pandas>=1.0.2",
       "numpy>=1.16.2",
-      "gensim<=3.8.3",
+      "gensim>=3.8.3",
       "scipy>=1.4.1",
       "joblib>=0.14.1",
       "python_igraph>=0.8.2"
