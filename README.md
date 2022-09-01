@@ -18,18 +18,20 @@ Citation Details
   
 If you use the source code in your work please reference this work by citing the following paper:
 
-Manipur, I., Manzo, M., Granata, I., Giordano, M., Maddalena, L. and Guarracino, M.R., 2021. Netpro2vec: a Graph Embedding Framework for Biomedical Applications. IEEE/ACM Transactions on Computational Biology and Bioinformatics.
- 
+I. Manipur, M. Manzo, I. Granata, M. Giordano, L. Maddalena and M. R. Guarracino, "Netpro2vec: A Graph Embedding Framework for Biomedical Applications," in IEEE/ACM Transactions on Computational Biology and Bioinformatics, vol. 19, no. 2, pp. 729-740, 1 March-April 2022, doi: 10.1109/TCBB.2021.3078089.
+
 Bibtex:
 
 ```
-@article{manipur2021netpro2vec,
-  title={Netpro2vec: a Graph Embedding Framework for Biomedical Applications},
-  author={Manipur, Ichcha and Manzo, Mario and Granata, Ilaria and Giordano, Maurizio and Maddalena, Lucia and Guarracino, Mario Rosario},
-  journal={IEEE/ACM Transactions on Computational Biology and Bioinformatics},
-  year={2021},
-  publisher={IEEE}
-}
+@ARTICLE{Manipur2021Netpro2vec,
+  author={Manipur, Ichcha and Manzo, Mario and Granata, Ilaria and Giordano, Maurizio and Maddalena, Lucia and Guarracino, Mario R.},
+  journal={IEEE/ACM Transactions on Computational Biology and Bioinformatics}, 
+  title={Netpro2vec: A Graph Embedding Framework for Biomedical Applications}, 
+  year={2022},
+  volume={19},
+  number={2},
+  pages={729-740},
+  doi={10.1109/TCBB.2021.3078089}}
 ```
 
 ----------------------
